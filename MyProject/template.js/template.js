@@ -1,8 +1,30 @@
 (function(){
     console.log("aaaaabbbb".replace(/a/ig,"c"));
-    var div="#for{<div id='#name' bb='123'>#age</div>}";
+    var div="#for{ #if{<div id='#name' bb='123'>#age</div>}} else{}";
     console.log(div);
-    console.log(div.match(/\#(\w+)/ig));
+    console.log("test","aaaaa[abb]bbb".match(/\[(.)+\]/ig));
+    console.log(div.match(/\#[^for|^if|^else|^else if](\w+)/ig));
+    console.log("for",div.match(/\#[for|if|else|else if]+\{+(.)+\}/ig));
+    
+    var regtest=/\#[for|if|else|else if]+\{+[^\{](.)+\}/ig;
+    var regBindKeys=/\#[^for|^if|^else|^else if](\w+)/ig;
+
+    
+
+    //var regBindBlock=/
+
+    var tt=regtest.exec(div);
+  
+    var tt2=div.split(/\{(.)+\}/ig);
+    console.log("tt2 is",tt2);
+    /*
+    for(var i=0;i<tt.length;i++){
+        console.log("post",tt[i]);
+      
+    }
+    */
+
+
 
     var templateConfig={
         bindKey:"#"  
