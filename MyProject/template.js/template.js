@@ -1,6 +1,6 @@
 (function(){
     console.log("aaaaabbbb".replace(/a/ig,"c"));
-    var div="#for{ #if{<div id='#name' bb='123'>#age</div>}} else{}";
+    var div="#for{#if{<div id='#name' bb='123'>#age</div>}} #else{4322} #if(dc){123}";
     console.log(div);
     console.log("test","aaaaa[abb]bbb".match(/\[(.)+\]/ig));
     console.log(div.match(/\#[^for|^if|^else|^else if](\w+)/ig));
@@ -9,30 +9,48 @@
     var regtest=/\#[for|if|else|else if]+\{+[^\{](.)+\}/ig;
     var regBindKeys=/\#[^for|^if|^else|^else if](\w+)/ig;
 
+
+
+    var mixHtml1="#for{ #if{ <div>abc</div> <div></div> <img src='#bg'> }}}#for{aa}<div>abc,123</div>";
+
+    var mixHtml2="<div>"    
+    +"#for(a in  dc){"
+    +"<div>#name</div>"
+    +"<div>#age</div>"
+    +"<div>#name</div>"
+    +"</div>"
+    +"#if{123123}";
+
+
+    var mixHtml3="#for{ #if{ <div>abc</div> <div></div> <img src='#bg'> }}}";
+
+
+
+    var regTemplateBlock=/\#[\w]+\{[\W\w]+?\}[.]?[\#]?|\<[\w\W]+\>/ig;
+
+
+    
     
 
-    //var regBindBlock=/
+    var regs=/\#[\w]+\{[\W\w]+?\}[.]?[\#]?|\<[\w\W]+\>/ig;
 
-    var tt=regtest.exec(div);
-  
-    var tt2=div.split(/\{(.)+\}/ig);
-    console.log("tt2 is",tt2);
-    /*
-    for(var i=0;i<tt.length;i++){
-        console.log("post",tt[i]);
-      
-    }
-    */
-
-
+    console.log("the new reg:",mixHtml2.match(regs));
 
     var templateConfig={
         bindKey:"#"  
     };
 
+
+
+
+    /*
+    *templateSelector
+    *负责查询绑定的数据值对象 
+    */
     var templateSelector={
         config:templateConfig,
-        find:function(selector,data){
+        /*查找指定对象数据*/
+        findData:function(selector,data){
             var regSelector=/\./ig,
             regArrayBlock=/\[+\d\]/ig,
             regArrayIndex=/\[|\]/ig,
@@ -62,12 +80,33 @@
             }
             return result;
         },
-        /*查找模板绑定的数据项*/
+        /*查找绑定数据项*/
         findBindKeys(renderHtml){
             return renderHtml.match(/\#^[(for)]^(else)(\w+)/ig);
         }
     }
     
+
+    /*
+    渲染
+    逻辑引擎
+    循环引擎
+    需要一个渲染的栈
+    */
+
+    var templateRender={
+        /*分隔模板
+        *返回一个需要处理的模板数组
+        */
+        splitTemplateblock:function(templateHtml){
+            return templateHtml.match(/\#[\w]+\{[\W\w]+?\}[.]?[\#]?|\<[\w\W]+\>/ig);
+        },
+        /*处理模板*/
+        renderTemplate:function(templateStr){
+            var rederList=this.splitTemplateblock(templateStr);
+        }
+    }
+
 
     console.log(templateSelector.findBindKeys(div));
 
@@ -80,7 +119,6 @@
             }
             return strHtml;
         }
-    
     }
 
 
