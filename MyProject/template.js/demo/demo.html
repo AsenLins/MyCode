@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>template.js</title>
+
+</head>
+<body>
+    <script>
+      var mixHtml3="#for(data){<div>test</div>  #if{ <div>abc</div> <div></div> <img src='#bg'> }}";
+
+    
+      var regTemplateCode=/\#[\w]+\{[\W\w]+\}/ig;      
+      //var tc=regTemplateCode.exec(mixHtml3);
+      //console.log("tc exec",tc);
+
+    var startBlock=/\#[for|else|else if|else][\w]+\{/ig;
+
+    console.log(startBlock.exec(mixHtml3));
+    console.log(mixHtml3.indexOf("#for{"));
+    console.log(mixHtml3.lastIndexOf("}"));
+
+
+    /*
+    Step1:先分解代码块为（√，已完成）
+    Step2：再解析代码块，生成渲染对象：操作符，参数，数据，执行的代码块，和html块
+    Step3: 再解析代码块中的内容，若检测到#if,for,else if,else,则生成一个调用栈，执行step1.
+    Step4:拼接渲染对象，并返回内容。
+    
+    */
+    var ifStack="#if(){}else #if(){} #else{}";
+    var regifStack=/\#if[.]*/ig;
+    console.log("if");
+    
+    var ifStack="#if(abc123>432){agbc} #else if(){4234} <div>3333</div> #else{ #for{<div>html</div>}  }";
+  
+    var regifStack=/\#[for|if|else if|else][\w\W]+?\{[\W\w]+?\}[.]?[\#]?/ig;
+    console.log("ifStack",ifStack.match(regifStack));
+    console.log("1.",regifStack.exec(ifStack));
+    console.log("2.",regifStack.exec(ifStack));
+    console.log("3.",regifStack.exec(ifStack)); 
+
+
+
+    function getTemplateBlock(html){
+        if(regifStack.test(html)){
+            var splitStack=regifStack.exec(html);
+            
+            while(regifStack.exec(html)!=null){
+                
+            }
+        }
+
+    }
+
+
+    function getBlock(renderStr){
+        var startBlock=renderStr.indexOf('{'),
+        endBlock=renderStr.lastIndexOf('}');
+        /*
+        renderObj={
+            operator:renderStr.match(/[for|if|else if|else]/)[0],
+            param:renderStr.match(/\([\w]+\)/)[0],
+            data:null,
+            html=renderStr.match(/\<[\w]/)
+
+        }*/
+        
+        //renderObj.
+    }
+
+
+    var renderCore={
+        for:function(){
+
+        },
+        if:function(){
+
+        },
+        "else if":function(){
+
+        },
+        else:function(){
+
+        }
+
+    }
+
+
+
+    </script>
+</body>
+</html>

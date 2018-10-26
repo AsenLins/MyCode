@@ -1,3 +1,39 @@
+
+/*正则创建：字面量创建与对象创建的区别
+  
+  字面量创建：重复创建的会共享一个实例
+  对象创建：每次都会生成一个新的实例。
+
+*/
+
+var searchOne="aa";
+
+var regStr=new RegExp("a","ig")
+var regObj=/a/ig;
+
+for(var i=0;i<4;i++){
+    console.log("regObj1",regObj.test(searchOne));
+}
+console.log("==================================");
+for(var b=0;b<4;b++){
+    regStr=new RegExp("a","ig");
+    console.log("regStr",regStr.test(searchOne));
+}
+
+
+var searchTwo="bat,cat,fat,dat";
+
+
+
+
+var regtThree=/for|(\{)|(\})/ig;
+
+var rt_5=regtThree.test("for{asdasd}");
+console.log("rt_left1",RegExp.input);
+console.log("rt_left2",RegExp.leftContext);
+console.log("rt_left3",RegExp.rightContext);
+
+
 (function(){
     console.log("aaaaabbbb".replace(/a/ig,"c"));
     var div="#for{#if{<div id='#name' bb='123'>#age</div>}} #else{4322} #if(dc){123}";
@@ -14,15 +50,54 @@
     var mixHtml1="#for{ #if{ <div>abc</div> <div></div> <img src='#bg'> }}}#for{aa}<div>abc,123</div>";
 
     var mixHtml2="<div>"    
-    +"#for(a in  dc){"
+    +"#for(a in dc){"
     +"<div>#name</div>"
     +"<div>#age</div>"
     +"<div>#name</div>"
-    +"</div>"
+    +"</div>}"
     +"#if{123123}";
 
 
+    var renderObj=[{
+        operator:"for",
+        param:"item in dc",
+        html:"<div></div>",
+        data:"",
+        stack:[
+            {
+
+            },
+            {
+
+            }
+        ]
+    }];
+
+    /*
+    Step1:先分解代码块为（√，已完成）
+    Step2：再解析代码块，生成渲染对象：操作符，参数，数据，执行的代码块，和html块
+    Step3: 再解析代码块中的内容，若检测到#if,for,else if,else,则生成一个调用栈，执行step1.
+    Step4:拼接渲染对象，并返回内容。
+    
+    */
+
+
     var mixHtml3="#for{ #if{ <div>abc</div> <div></div> <img src='#bg'> }}}";
+
+
+    var regTemplateCode=/\#[\w]+\{[\W\w]+\}/ig;
+    var tc=regTemplateCode.exec(mixHtml3);
+    console.log("tc exec",tc);
+
+
+
+    var ifStack="#if(abc123>432){agbc} #else if(){4234} <div>3333</div> #else{ #for{<div>html</div>}  }";
+    var regifStack=/\#[for|if|else if|else][\w\W]+?\{[\W\w]+?\}[.]?[\#]?/ig;
+    console.log("ifStack",ifStack.match(regifStack));
+    console.log("1.",regifStack.exec(ifStack));
+    console.log("2.",regifStack.exec(ifStack));
+    console.log("3.",regifStack.exec(ifStack)); 
+
 
 
 
@@ -30,7 +105,7 @@
 
 
     
-    
+
 
     var regs=/\#[\w]+\{[\W\w]+?\}[.]?[\#]?|\<[\w\W]+\>/ig;
 
