@@ -104,7 +104,18 @@ console.log("rt_left3",RegExp.rightContext);
     var regTemplateBlock=/\#[\w]+\{[\W\w]+?\}[.]?[\#]?|\<[\w\W]+\>/ig;
 
 
+    var regBlock2=/.+\}/;
+    var helloBlock=/h.+l/;
+    var block2="ccccccc}}b}}";
+    console.log("blcok2",block2.match(regBlock2));
+    console.log("hello","hellllolll".match(helloBlock));
+
+    var block="#for{<div></div>} #for{ asdasdad #if(a>b>c){<div>for(dv=0;dv>kc.lenght;dv++){n}</div>}} #if(){}";
+    var regBlock=/\#(for|if|else if|else)/ig;
     
+    console.log("the block",block.match(regBlock));
+    console.log("the block3343",block.match(regBlock)[1]);
+
 
 
     var regs=/\#[\w]+\{[\W\w]+?\}[.]?[\#]?|\<[\w\W]+\>/ig;
