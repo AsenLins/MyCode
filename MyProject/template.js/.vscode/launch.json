@@ -8,7 +8,8 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/template.js"
+            //"program": "${workspaceFolder}/template.js"
+            "program": "${workspaceFolder}/test.js"
         },
         {
             "type": "chrome",

@@ -4,88 +4,159 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>template.js</title>
+    <script id="testTemplate" type="text/template">
+        <div>
+            #for(item){
+                <div>
+                    <a d="{{item.b}}" class="item.b">{{item.i}}</a>
+                </div>
+                if(item.b>0){
+                    <div>
+                        <a href="#">测试链接</a>
+                    </div>
+                }
+            }
+            #if{
+                <div></div>
+                if(a>b){
+                    
+                }
+            }
 
+        </div>  
+    </script>
 </head>
 <body>
     <script>
-      var mixHtml3="#for(data){<div>test</div>  #if{ <div>abc</div> <div></div> <img src='#bg'> }}";
 
-    
-      var regTemplateCode=/\#[\w]+\{[\W\w]+\}/ig;      
-      //var tc=regTemplateCode.exec(mixHtml3);
-      //console.log("tc exec",tc);
+/*先分离，然后再加#，然后一层一层解析：每一层解析包括：操作符 html，嵌套的if,for，数据参数等。*/
+/*Step1 拆分代码块 */
 
-    var startBlock=/\#[for|else|else if|else][\w]+\{/ig;
+var dc="for|#for";
 
-    console.log(startBlock.exec(mixHtml3));
-    console.log(mixHtml3.indexOf("#for{"));
-    console.log(mixHtml3.lastIndexOf("}"));
+console.log("是否符合",dc.match(/[\#](for|if|else if|else)/));
 
 
-    /*
-    Step1:先分解代码块为（√，已完成）
-    Step2：再解析代码块，生成渲染对象：操作符，参数，数据，执行的代码块，和html块
-    Step3: 再解析代码块中的内容，若检测到#if,for,else if,else,则生成一个调用栈，执行step1.
-    Step4:拼接渲染对象，并返回内容。
-    
-    */
-    var ifStack="#if(){}else #if(){} #else{}";
-    var regifStack=/\#if[.]*/ig;
-    console.log("if");
-    
-    var ifStack="#if(abc123>432){agbc} #else if(){4234} <div>3333</div> #else{ #for{<div>html</div>}  }";
-  
-    var regifStack=/\#[for|if|else if|else][\w\W]+?\{[\W\w]+?\}[.]?[\#]?/ig;
-    console.log("ifStack",ifStack.match(regifStack));
-    console.log("1.",regifStack.exec(ifStack));
-    console.log("2.",regifStack.exec(ifStack));
-    console.log("3.",regifStack.exec(ifStack)); 
+var fc=new Function("a","b","for(var i=0;i<a;i++){ console.log('这是循环添加,',i); }");
+
+console.log(fc(3,4));
 
 
-
-    function getTemplateBlock(html){
-        if(regifStack.test(html)){
-            var splitStack=regifStack.exec(html);
+var templateObj={
+    mark:"@1",
+    render:{
+        operator:"",
+        express:"",
+        html:"",
+        data:"",
+        reder:{
             
-            while(regifStack.exec(html)!=null){
-                
-            }
+        }
+    }
+}
+
+
+
+var templateBuilder={
+    /*模板标识Id*/
+    mark:0,
+
+    /*分割代码段*/
+    splitBlock:function(str){
+        var reg=/\#(for|if|else if|else).*?\{(.*?)[^\#]+\}/ig;
+        str=str.replace(/[\n\r]|[\s]{2}/ig,"");
+       
+ 
+
+        return str.match(reg);
+    },
+
+    /*去除最外层{}符号*/
+    removeBlockChar:function(str){
+        var startBlock=str.indexOf("{"),
+        endBlock=str.lastIndexOf("}");
+
+        if(startBlock>-1&&endBlock>-1){
+            str=str.substring(startBlock+1,endBlock-1);
         }
 
-    }
+        return str;
+    },
 
+    /*生成模板标记*/
+    setMark:function(array,str){
 
-    function getBlock(renderStr){
-        var startBlock=renderStr.indexOf('{'),
-        endBlock=renderStr.lastIndexOf('}');
-        /*
-        renderObj={
-            operator:renderStr.match(/[for|if|else if|else]/)[0],
-            param:renderStr.match(/\([\w]+\)/)[0],
-            data:null,
-            html=renderStr.match(/\<[\w]/)
+        if(array===undefined||array.length===0){
+            return str;
+        }
+        array.forEach(function(item,index,ary){
+            console.log("标记是",item);
+            str=str.replace(item,"@1");
+        });
 
-        }*/
+        return str;
+    },
+
+    /*为模板关键字添加特殊’解析符号#’*/
+    addSymbol:function(str){
+        var keywords=['for','if','else if','else']; 
+      
+        keywords.forEach(function(item,index,ary){          
+            var reg=new RegExp(ary[index],"ig");
+            str=str.replace(reg,"#"+ary[index]);
+        });
+
+        return str;
+    },
+
+    /*获取渲染的html代码块*/
+    getHtml:function(str){
+    
+    },
+    /*获取渲染模板内容*/
+    getCode(str){        
+        return str.match(/\{(.*)\}/ig)[0];
+    },
+    /*获取操作符*/
+    getOperator:function(str){
+        return str.match(/(for|if|else if|else)/)[0];
+    },
+
+    /*获取表达式*/
+    getExpress:function(str){
+        return str.match(/\((.*?)\)/)[0];
+    },
+
+    createTemplate(){
         
-        //renderObj.
     }
 
+}
 
-    var renderCore={
-        for:function(){
+var dc="0";
 
-        },
-        if:function(){
+window.eval("for(var index=0;index<3;index++){ console.log('3343'); }  dc=44311111;");
 
-        },
-        "else if":function(){
+console.log("这是eval生存的dc",dc);
 
-        },
-        else:function(){
 
-        }
 
-    }
+
+var renderHtml=document.getElementById("testTemplate").innerHTML;
+console.log("html",renderHtml);
+console.log("split block",templateBuilder.splitBlock(renderHtml));
+var rederBlock=templateBuilder.splitBlock(renderHtml);
+
+
+
+
+rederBlock.forEach(function(item,index,array){
+    console.log("索引是："+index,array[index]);
+    array[index]=templateBuilder.addSymbol(array[index]);
+});
+
+
+
 
 
 
