@@ -4,11 +4,13 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>template.js</title>
+
+
     <script id="testTemplate" type="text/template">
         <div>
             #for(item){
                 <div>
-                    <a d="{{item.b}}" class="item.b">{{item.i}}</a>
+                    <a d="{item.b}" class="item.b">{item.i}</a>
                 </div>
                 if(item.b>0){
                     <div>
@@ -22,6 +24,7 @@
                     
                 }
             }
+
 
         </div>  
     </script>
@@ -150,10 +153,26 @@ var rederBlock=templateBuilder.splitBlock(renderHtml);
 
 
 
+
 rederBlock.forEach(function(item,index,array){
     console.log("索引是："+index,array[index]);
     array[index]=templateBuilder.addSymbol(array[index]);
 });
+
+var t1=rederBlock[0];
+
+var htmlReg=/(for|if|else if|else)(.*?)\{|\{(.*?)\}/ig;
+
+var dc=null;
+var ary=[];
+
+ary.push(htmlReg.exec(t1));
+ary.push(htmlReg.exec(t1));
+ary.push(htmlReg.exec(t1));
+ary.push(htmlReg.exec(t1));
+ary.push(htmlReg.exec(t1));
+console.log("ary",ary);
+
 
 
 
