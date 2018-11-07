@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>margin</title>
+    <style type="text/css">
+
+        h3{
+            position: relative;
+            z-index: 3;
+            margin-top: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eeeeee;
+        }
+        .clear::after{
+            display:inline-block;
+            clear: both;
+            content: "";
+        }
+
+        .box1{
+            width: 300px;
+        }
+        .content1{
+            margin: 0 -20px;
+
+        }
+        .box2{
+            display: inline;
+        }
+        .content2{
+            margin: 0 -20px;
+        }
+
+        .box3{
+            
+            overflow: hidden;
+            
+        }
+        .box3 img{
+            float: left;
+            width: 128px;
+        }
+        .box3 p{
+            margin-left: 140px;
+        }
+
+        .box4{
+            display: inline-block;
+            background-color: yellow;
+        }
+        .box4 ul{
+           
+            list-style: none;
+            background-color: gray;
+            padding: 0px;
+            background-color: gray;
+            box-sizing: border-box;
+            margin-top: 0px;
+            margin-right: -20px;
+           
+        }
+        .box4 ul li{
+            float: left;
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+            background: red;
+        }
+
+
+        .box5{
+           
+            overflow: hidden;
+        }
+        .box5>div{
+            float: left;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-bottom: -500px;
+            padding-bottom: 500px;    
+        }
+        .box5>div:first-child{
+            background: gold;
+        }
+        .box5>div:last-child{
+            background: grey;
+        }      
+
+        .p1,.p2{
+            margin-top:30px;
+            margin-bottom: 30px;
+        }
+
+        .box6{
+            margin-top: 20px;
+            margin-bottom: 40px;
+            background-color: gold;
+
+        }
+        .box6 p{
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+
+        .p3{
+            margin-bottom: 40px;
+        }
+        .p4{
+            margin-top: 20px;
+        }
+        .box7{
+            margin-top: 20px;
+        }
+        .box7>div{
+            margin-top: 40px;
+        }
+
+        .a1{
+            margin-top: 20px;
+            margin-bottom: 50px;
+        }
+
+        .box8{
+            margin-top: -20px;
+            margin-bottom:50px;         
+        }
+        .box9{
+            margin-bottom: -20px;
+        }
+        .box9>div{
+            margin-bottom: -50px;
+        }
+
+/*
+margin总结:
+- 对于普通块状元素，在默认的水平流下，margin 只能改变左右方向的内部尺寸
+,但外部元素也会受margin的bottom和top的影响而改变尺寸。
+
+-内联元素margin是没有任何影响的.
+
+-magin默认值都是0
+
+-margin合并:
+块级元素的上外边距（margin-top）与下外边距（margin-bottom）有时会合并为单
+个外边距，这样的现象称为“margin 合并”。
+
+只发生在块级元素，垂直元素
+
+合并指的是合，也就是一个margin会取代另外一个margin而不是加在一起，具体规则由排列方式和元素决定。
+
+
+
+
+（1）充分利用可用空间。比方说，<div>、<p>这些元素的宽度默认是 100%于父级容器的。
+这种充分利用可用空间的行为还有个专有名字，叫作 fill-available，大家了解即可。
+（2）收缩与包裹。典型代表就是浮动、绝对定位、inline-block 元素或 table 元素，
+英文称为 shrink-to-fit，直译为“收缩到合适”，有那么点儿意思，但不够形象，我一直把这种现
+象称为“包裹性”。CSS3 中的 fit-content 指的就是这种宽度表现。
+（3）收缩到最小。这个最容易出现在 table-layout 为 auto 的表格中，想必有经验的
+人一定见过图 3-4 所示的这样一柱擎天的盛况吧！
+
+
+（1）包裹性。
+“包裹性”是我自己对“shrink-to-fit”理解后的一种称谓，我个人觉得非常形象好记，一直
+用了很多年。“包裹性”也是 CSS 世界中很重要的流布局表现形式。
+中文就是博大精深，顾名思义，“包裹性”，除了“包裹”，还有“自适应性”。“自适应性”
+是区分后面两种尺寸表现很重要的一点。那么这个“自适应性”指的是什么呢？
+所谓“自适应性”，指的是元素尺寸由内部元素决定，但永远小于“包含块”容器的
+尺寸（除非容器尺寸小于元素的“首选最小宽度”）。换句话说就是，“包裹性”元素冥冥
+中有个 max-width:100%罩着的感觉（注意，此说法只是便于大家理解，实际上是有明
+显区别的）。
+因此，对于一个元素，如果其 display 属性值是 inline-block，那么即使其里面内容
+再多，只要是正常文本，宽度也不会超过容器。于是，图文混排的时候，我们只要关心内容，
+除非“首选最小宽度”比容器宽度还要大，否则我们完全不需要担心某个元素内容太多而破坏
+了布局
+
+
+*/
+
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <div class="content1">test</div>
+    </div>
+
+    <div class="box2">
+        <div class="content2">test2</span>
+    </div>
+
+    <h3>利用margin实现自适应图文排列</h3>
+    <div class="box3 clear">
+        <img src="https://asenimages.oss-cn-shenzhen.aliyuncs.com/微信图片_20181003143220.jpg">
+        <p>很不错的图文编排</p>
+    </div>
+
+
+    <h3>利用margin 实现两端对齐</h3>
+    <div class="box4">
+        <ul>
+            <li>li1</li>
+            <li>li2</li>
+            <li>li3</li>
+        </ul>
+    </div>
+
+
+    <h3>利用margin 实现等高布局</h3>
+    <div class="box5 clear">
+        <div>
+            <div>box5-1-1</div>
+            <div>box5-1-2</div>
+            <div>box5-1-3</div>
+            <div>box5-1-4</div>
+            <div>box5-1-5</div>
+            <div>box5-1-6</div>
+
+        </div>
+        <div>
+            <div>box5-2-1</div>
+           
+            <div>box5-2-3</div>
+
+        </div>
+    </div>
+
+
+    <h3>margin 合并的3种场景</h3>
+    <h4>相邻兄弟元素合并</h4>
+    <p class="p1">我是兄弟1</p>
+    <p class="p2">我是兄弟2</p>
+
+    <h4>父级和第一个子元素和最后一个子元素合并</h4>
+    <div class="box6">
+        <p>儿子1</p>
+        <p>儿子2</p>
+    </div>
+
+    <h3>margin 合并计算规则</h3>
+    <h4>相邻兄弟合并，会取最大值的那个一个margin</h4>
+    <p class="p3">我是兄弟1</p>
+    <p class="p4">我是兄弟2</p>
+
+    <h4>父子合并,取最大的那个margin值</h4>
+    <div class="box7">
+        <div>我是儿子</div>
+    </div>
+
+  
+    <h4>自身合并，取最大的那个margin值</h4>
+    <div class="a1">我是a标签</div>
+
+    <h4>margin正负，则取加起来的最终值</h4>
+    <a></a>
+    <div class="box8">
+        <div>我是box8儿子</div>
+    </div>
+
+    <h4>margin负负，取最大的负值</h4>
+    <div class="box9">
+        <div >box9-1</div>
+        <div >box9-2</div>
+    </div>
+
+    <h3>margin的auto</h3>
+    <div></div>
+
+
+
+    <script>
+        test(3,4,5,6);
+        function test(){
+            console.log(arguments)
+            
+        }
+    </script>
+
+</body>
+</html>

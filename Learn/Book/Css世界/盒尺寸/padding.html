@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+<style type="text/css">
+    h3{
+        position: relative;
+        z-index: 3;
+        margin-top: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    a{
+        padding:20px;
+        background: red;
+        width: 30px;
+        height: 30px;
+      
+        box-sizing: border-box;
+        
+    }
+
+    .box2{
+        overflow: auto;
+    }
+
+    .box3 a{
+        background: transparent;
+        padding: 0px;
+    }
+    .box3 a + a::before{
+        content: "";
+        font-size: 0px;
+        padding: 16px 3px 6px 6px;
+        margin-left: 6px;
+        border-left: 1px solid gray;
+    }
+    
+    .box4{
+        width: 100px;
+    }
+    .box4 a{
+        
+        padding: 10% 50%;
+    }
+
+    .box5{
+        position: relative;
+        top: 0px;
+        padding: 10% 50%;
+    }
+    .box5 img{
+        position:absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+
+    }
+
+    .box6{
+        border: 2px dotted black;
+        width: 100px;
+    }
+    .box6 a{
+      
+        padding-left: 20%;
+    }
+
+
+    /*padding 特性
+    - 不支持负值
+    - padding支持百分比
+    - padding百分比值是根据宽度计算的（默认是根据父元素的宽度）。
+    */
+
+    /*
+    得出结论:
+    1.padding是内补间，相当于快递盒子里的海绵，
+    当海绵比盒子的大小还大时，就会溢出，这种情况只有在确认了width和height的时候才会出现
+    
+    2.内联元素的padding是有作用的，如:a标签是内联元素,而内联元素只受内容盒子影响，虽然width和height的属性不能操作内联元素大小，
+    但每个盒子里都有padding这个盒子，可以使用padding去补width和height。
+    
+    3.层叠现象分三种：一种是不影响的布局的如：box-shadow,另外一是会影响布局如：margin，而
+    pading则是前两种的混合，当父元素设置为auto时，padding则会影响到父元素出现滚动条
+
+    4.如果是内联元素，当尺寸或者外边距超出指定范围时，只会是视觉上的层叠，而不会影响布局。
+
+    5.内联元素是的高度和宽度，还有3种盒尺寸（margin,padding,border）是不会加入到实际的高度的
+    内联元素没有可视化高度和宽度(clientWidth和clientHeight).
+
+    6.内联元素的默认高宽是受字体大小影响的。
+
+    */
+
+
+
+</style>
+</head>
+<body>
+    <h3>当box-size为border-box时，如果padding足够大时，并不会受高宽限制</h1>
+    <div class="box1">
+        <a>padding</a>
+    </div>
+
+    <h3>padding会影响父元素</h3>
+    <div class="box2">
+        <a>pdding2</a>
+    </div>
+
+    <h3>padding实现分割</h3>
+    <div class="box3">
+        <a>登陆</a>
+        <a>注册</a>
+    </div>
+
+    <h3>padding实现正方形</h3>
+    <div class="box4">
+        <a></a>
+    </div>
+
+    <h3>padding实现固定比例头图</h4>
+    <div class="box5">
+        <img src="https://asenimages.oss-cn-shenzhen.aliyuncs.com/timg.jpg">
+    </div>
+
+    <h3>padding内联元素会断行</h3>
+    <div class="box6">
+        <a>这是一串文字</a>
+    </div>
+
+    <h3>
+        使用label代替button
+    </h3>
+    <div>
+        <label  for="btn-test">点我</label>
+        <button id="btn-test">点我</button>
+    </div>
+
+
+</body>
+
+<script>
+  
+
+        document.getElementById("btn-test").onclick=function(){
+            alert("click");
+        }
+
+</script>
+</html>
