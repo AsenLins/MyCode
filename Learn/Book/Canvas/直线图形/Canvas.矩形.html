@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Canvas的矩形方法</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #mycanvas{
+            background-color: #eeeeee;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="mycanvas" width="600" height="300"></canvas>
+    <script>
+        /*
+        strokeStyle:设置路径样式。
+        strokeRect：根据strokeStyle绘制矩形。
+        fillStyle(x,y,w,h)：设置填充样式。
+        fillRect(x,y,w,h)：根据fillStyle填充矩形。
+        
+        
+        rect(x,y,w,h):填充矩形，需要配合fill与stroke。
+        fill():填充rect矩形部分。
+        stroke():绘制rect矩形部分。
+
+        clearRect(x,y,w,h):清除指定矩形部分。
+
+
+
+        */
+        var canvas=document.getElementById("mycanvas");
+        var ctx=canvas.getContext("2d");
+     
+        /*描边矩形*/
+        ctx.strokeStyle="Red";
+        ctx.strokeRect(10,10,100,50)
+        
+
+        /*填充矩形*/
+        ctx.strokeStyle="Green";
+        ctx.strokeRect(120,70,100,50);
+        ctx.fillStyle="Red";
+        ctx.fillRect(120,70,100,50);
+
+        /*rect，需配合fill,stroke使用*/
+        ctx.moveTo(250,10);
+   
+        
+        ctx.fillStyle="rgba(138,43,226,1)";
+        ctx.rect(250,10,100,50);
+        ctx.fill();
+
+        ctx.fillStyle ="rgba(100,149,237,0.6)";
+        ctx.fillRect(260,20,100,50);
+
+        /*清除定义矩形区域*/
+        ctx.clearRect(270,30,80,30);
+        
+        var d=10;
+        var g=5;
+        
+        var s=d*g/2
+
+
+
+        /*
+        颜色的属性值：
+        cxt.strokeStyle = "#FF0000"; // 十六进制颜色值
+        cxt.strokeStyle = "red"; // 颜色关键字
+        cxt.strokeStyle = "rgb(255,0,0)"; //rgb 颜色值
+        cxt.strokeStyle = "rgba(255,0,0,0.8)"; //rgba 颜色值 
+        
+        */
+
+    </script>
+</body>
+</html>

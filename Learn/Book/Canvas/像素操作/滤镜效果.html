@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>反转效果</title>
+</head>
+<body>
+    <canvas id="mycanvas" width="400" height="400"></canvas>
+    <script>
+        /*
+            反转效果，也叫“颜色反转”，是指图片颜色颠倒效果。实现算法是：红、绿、蓝这
+            三个通道的像素取各自的相反值，也就是（255- 原值）。       
+                    
+        */
+        var canvas=document.getElementById("mycanvas");
+        var ctx=canvas.getContext("2d");
+
+        var img=new Image();
+        /*使用跨域crossOrigin和参数就可以了*/
+        //"http://asenlins.me/simpleImg/simple.jpg?"+new Date().getTime();
+        img.src="http://asenlins.me/simpleImg/simple.jpg?"+new Date().getTime();
+        //img.src="simple.jpg";
+        img.setAttribute("crossOrigin",'Anonymous');
+        
+        img.onload=function(){
+            /*反转效果*/
+            ctx.drawImage(img, 0, 0, 80, 80);
+            var fzImgObj=ctx.getImageData(0,0,80,80);
+            var fzImgData=fzImgObj.data;
+            console.log(fzImgData);
+            for(var i=0;i<fzImgData.length;i+=4){
+                fzImgData[i+0]=255-fzImgData[i+0];
+                fzImgData[i+1]=255-fzImgData[i+1];
+                fzImgData[i+2]=255-fzImgData[i+2];
+                /*
+                不需要调透明度
+                fzImgData[i+0]=255-fzImgData[i+3];
+                */
+            }
+            ctx.putImageData(fzImgObj,0,0);
+
+            /*黑白效果
+            取RGB平均值即可
+            */
+           
+            ctx.drawImage(img, 85, 0, 80, 80);
+            fzImgObj=ctx.getImageData( 85, 0, 80, 80);
+            fzImgData=fzImgObj.data;
+            for(var i=0;i<fzImgData.length;i+=4){
+                var avgVal=fzImgData[i]*0.3+fzImgData[i+1]*0.6+fzImgData[i+2]*0.1;
+                console.log(avgVal);
+                fzImgData[i+0]=avgVal;
+                fzImgData[i+1]=avgVal;
+                fzImgData[i+2]=avgVal;             
+            }
+
+            ctx.putImageData(fzImgObj,85,0);
+
+            /*亮度效果
+            为RGB同时添加正值和负值即可
+            */
+            ctx.drawImage(img, 170, 0, 80, 80);
+            fzImgObj=ctx.getImageData( 170, 0, 80, 80);
+            fzImgData=fzImgObj.data;  
+            for(var i=0;i<fzImgData.length;i+=4){
+                var addVal=50;
+                fzImgData[i+0]=fzImgData[i+0]+addVal;
+                fzImgData[i+1]=fzImgData[i+1]+addVal;
+                fzImgData[i+2]=fzImgData[i+2]+addVal;            
+            }
+            ctx.putImageData(fzImgObj,170,0);
+            
+            /*复古效果           
+            将红、绿、蓝三个
+            通道，分别取这三个值的某种加权平均值。
+            */
+            ctx.drawImage(img, 0, 85, 80, 80);
+            fzImgObj=ctx.getImageData(0, 85, 80, 80);
+            fzImgData=fzImgObj.data;
+            for(var i=0;i<fzImgData.length;i+=4){
+                var r=fzImgData[i];
+                var g=fzImgData[i+1];
+                var b=fzImgData[i+2];
+                fzImgData[i + 0] = r * 0.39 + g * 0.76 + b * 0.18;
+                fzImgData[i + 1] = r * 0.35 + g * 0.68 + b * 0.16;
+                fzImgData[i + 2] = r * 0.27 + g * 0.53 + b * 0.13;          
+            }
+            ctx.putImageData(fzImgObj,0, 85);
+
+
+
+
+            /*红色蒙版
+            将R的值设置为RGB3个值的和的平均值,然后GB再设置成0
+            */
+            ctx.drawImage(img, 85, 85, 80, 80);
+            fzImgObj=ctx.getImageData(85, 85, 80, 80);
+            fzImgData=fzImgObj.data;
+            for(var i=0;i<fzImgData.length;i+=4){
+                var r=fzImgData[i]+fzImgData[i+1]+fzImgData[i+2]/3;
+
+                fzImgData[i + 0] = r;
+                fzImgData[i + 1] = 0;
+                fzImgData[i + 2] = 0;        
+            }
+            ctx.putImageData(fzImgObj,85, 85);
+
+            /*透明
+            将该数组中每一个像素的透明度乘以 n。
+            */
+            ctx.drawImage(img, 170, 85, 80, 80);
+            fzImgObj=ctx.getImageData(170, 85, 80, 80);
+            fzImgData=fzImgObj.data;
+            for(var i=0;i<fzImgData.length;i+=4){
+                var transparent=0.3;
+                /*rgba的a*/
+                fzImgData[i + 3] =fzImgData[i + 3]*transparent;        
+            }
+            ctx.putImageData(fzImgObj,170, 85);
+
+
+        }
+
+    </script>
+</body>
+</html>

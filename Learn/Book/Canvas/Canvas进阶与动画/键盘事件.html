@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>键盘事件</title>
+    <style>
+    .mycanvas{
+        background-color: #eeeeee;
+    }
+    </style>
+</head>
+<body>
+    <script src="tool.js"></script>
+    <canvas class="mycanvas" id="mycanvas" width="600" height="600" ></canvas>
+    <script>
+        console.log(window.requestAnimationFrame);
+        var keyCode=window.tool.getKey();   
+        canvas=document.getElementById("mycanvas"),
+        ctx=canvas.getContext("2d"),
+        x=0,
+        y=0;
+
+        window.addEventListener("keydown",function(){
+            console.log("..");
+            var getDirection=keyCode.direction;
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            console.log(getDirection);
+            switch(getDirection){
+                case "up":
+                y=y-5;
+                drawBall(x,y);
+                break;
+             
+                case "down":
+                y=y+5;
+                drawBall(x,y);  
+                break;
+
+                case "left":
+                x=x-5;
+                drawBall(x,y);
+                break;
+
+                case "right":
+                x=x+5;
+                drawBall(x,y);
+                break;
+            }
+
+        },false);
+
+        function drawBall(x,y){
+            ctx.beginPath();
+            ctx.arc(x, y, 20, 0, 360 * Math.PI / 180, true);
+            ctx.closePath();
+            ctx.fillStyle="green";
+            ctx.fillRect(x,y,80,80);
+
+        }
+
+    
+    </script>   
+</body>
+</html>

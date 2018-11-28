@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>平鋪圖片</title>
+</head>
+<body>
+        <canvas id="mycanvas" width="800" height="800"></canvas>
+        <script>
+            /*
+            createPattern(img,type);
+            type:
+            - repeat:x,y重复
+            - repeat-x:只重复x
+            - repeat-y:只重复y
+            - no-repeat:不重复 
+            */
+            var canvas=document.getElementById("mycanvas");
+            var ctx=canvas.getContext("2d"); 
+            var img=new Image();
+            img.src="simple.jpg";   
+            
+            img.onload=function(){
+                /*平铺类型*/
+                //var bg=ctx.createPattern(img,"repeat");
+                //var bg=ctx.createPattern(img,"repeat-x");
+                /*图片结合图形*/
+                ctx.beginPath();
+                ctx.arc(50, 50, 50, 0, 360 * Math.PI / 180, false);
+                ctx.closePath();
+
+                var bg=ctx.createPattern(img,"repeat-y");
+                ctx.fillStyle=bg;
+                /*结合图形时调用fill*/
+                ctx.fill();
+                /*填充背景时，调用fillRect*/
+                //ctx.fillRect(0,0,canvas.width,canvas.height);
+
+            }
+        
+        </script>
+        
+</body>
+</html>

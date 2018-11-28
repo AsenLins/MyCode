@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>save与restore</title>
+</head>
+<body>
+    <canvas id="mycanvas" width="800" height="800"></canvas>
+    <script>
+        /*
+        restore改可以改变当前变形之后的原点，和context的状态（如fillStyle,StoreStyle等。）
+        */
+        var canvas=document.getElementById("mycanvas");
+        var ctx=canvas.getContext("2d");        
+            ctx.beginPath();
+            ctx.arc(0,0,80,0,360*Math.PI/180,true);
+            ctx.closePath();
+            ctx.save();
+            ctx.clip();
+            var img=new Image();
+            /*使用跨域crossOrigin和参数就可以了*/
+            //"http://asenlins.me/simpleImg/simple.jpg?"+new Date().getTime();
+            img.src="http://asenlins.me/simpleImg/simple.jpg?"+new Date().getTime();
+            //img.src="simple.jpg";
+            img.setAttribute("crossOrigin",'Anonymous');
+            img.onload=function(){
+                ctx.drawImage(img,0,0,80,80);
+                ctx.restore();
+                ctx.clearRect(0,0, canvas.width, canvas.height);
+                ctx.drawImage(img,10,10,80,80);
+            }
+
+            
+            
+
+
+
+    </script>
+     
+</body>
+</html>

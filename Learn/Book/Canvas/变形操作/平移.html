@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>平移</title>
+</head>
+<body>
+    <canvas id="mycanvas" width="800" height="800"></canvas>
+    <input type="button" value="移动" id="move"/>
+    <script>
+        /*
+        translate会改变当前起点，与moveTo一样
+        translate(x,y):将图形或字体，形状平移。
+        
+        
+        */
+        
+        var canvas=document.getElementById("mycanvas");
+        var ctx=canvas.getContext("2d");     
+        
+        ctx.fillStyle="hotpink";
+        ctx.fillRect(0,0,60,60);
+
+        ctx.fillStyle="red";
+        ctx.translate(60, 60);
+      
+        
+        document.getElementById("move").addEventListener("click",function(){
+            ctx.translate(10, 10);
+            ctx.fillRect(0,0,60,60);
+
+        },false);
+
+    </script>
+</body>
+</html>

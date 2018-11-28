@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>調色板</title>
+    <style>
+        .colorPanel{
+            cursor: pointer;
+        }
+        .selectColor{
+            width: 25px;
+            height: 25px;
+            border: 1px solid #eeeeee;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h4>你当前选择的颜色是：</h4>
+    <div id="js-selectColor" class="selectColor"></div>
+    <canvas id="js-colorPanel" class="colorPanel"  width="1000" height="600"></canvas>
+    <script>
+        /*
+        rgb颜色：分红，绿，蓝三色，也称为三原色, rgb颜色就是通过这个3个颜色值混合叠加。
+        rgb颜色亮度值:(255,255,255),这3个值分别都是红、绿、蓝的亮度值。
+        */
+
+
+
+        (function(){
+
+            
+            var canvas=document.getElementById("js-colorPanel"),
+            ctx=canvas.getContext("2d"),
+            row=10,
+            column=10,
+            itemWidth=25,
+            itemHeight=25,
+            tmpx=0,
+            tmpy=0;
+            
+            /**
+             * 获取rgb字符串值
+             */
+            function rgb(red,green,blue) {
+                return "rgb("+red+","+green+","+blue+")";
+            }            
+            
+            
+            for(var index=0;index<row;index++){
+                tmpx=0;
+                for(var cindex=0;cindex<column;cindex++){
+                    ctx.fillStyle=rgb(255-Math.round(index*(255/row)),255-Math.round(cindex*(255/column)),0);
+                    ctx.fillRect(tmpx,tmpy,itemWidth,itemHeight);
+                    tmpx=tmpx+itemWidth;
+                }
+                tmpy=tmpy+itemHeight;
+            }
+
+            /**
+             * 获取颜色值
+             */
+            canvas.addEventListener("click",function(e){
+                var canvasDom=e.currentTarget,
+                offsetTop=canvasDom.offsetTop,
+                offsetLeft=canvasDom.offsetLeft,
+                clientX=e.clientX,
+                clientY=e.clientY,
+                resultX=Math.abs(offsetLeft-clientX),
+                resultY=Math.abs(offsetTop-clientY),
+                pickColor=ctx.getImageData(resultX, resultY, 1, 1).data;
+            
+                document.getElementById("js-selectColor").style.backgroundColor="rgba("+pickColor[0]+","+pickColor[1]+","+pickColor[2]+","+pickColor[3]+")";
+            },false);
+
+
+           
+
+
+
+            /*
+            var canvasImg=canvas.toDataURL();
+            var img=new Image();
+            img.src=canvasImg;
+            */
+           
+
+
+        })();
+
+
+    </script>
+</body>
+</html>

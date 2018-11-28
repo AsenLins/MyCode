@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>两点距离</title>
+    <style>
+        #mycanvas{
+            background-color: #eeeeee;
+        }
+    </style>
+    <script src="tool.js"></script>
+</head>
+<body>
+    <canvas id="mycanvas"></canvas>
+    <script>
+       var canvas=document.getElementById("mycanvas"),
+       ctx=canvas.getContext('2d'),
+       mouse=window.tool.getPosition(canvas);
+       ctx.strokeStyle="red";
+   
+
+
+       (function myFrame(){
+            window.requestAnimationFrame(myFrame,canvas);
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            var x=canvas.width/2,
+                y=canvas.height/2,
+                dx=mouse.x-x,
+                dy=mouse.y-y;
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(x,y);
+              
+                ctx.lineTo(mouse.x,mouse.y);
+                ctx.stroke();
+                ctx.closePath();
+                ctx.restore();
+                var juli=Math.sqrt(dx*dx+dy*dy);
+
+                console.log("距离是:",juli);
+
+        
+
+       })();
+       
+       
+    
+      
+    </script>
+</body>
+</html>

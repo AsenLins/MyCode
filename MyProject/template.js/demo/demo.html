@@ -66,10 +66,9 @@ var templateBuilder={
 
     /*分割代码段*/
     splitBlock:function(str){
-        var reg=/\#(for|if|else if|else).*?\{(.*?)[^\#]+\}/ig;
+        var reg=/\#(for|if|else if|else).*?\{(.*)[^\#]+\}/ig;
         str=str.replace(/[\n\r]|[\s]{2}/ig,"");
        
- 
 
         return str.match(reg);
     },
@@ -160,8 +159,9 @@ rederBlock.forEach(function(item,index,array){
 });
 
 var t1=rederBlock[0];
+var t2=rederBlock[1];
 
-var htmlReg=/(for|if|else if|else)(.*?)\{|\{(.*?)\}/ig;
+var htmlReg=/[\#](for|if|else if|else)(.*?)\{|\{(.*?)\}/ig;
 
 var dc=null;
 var ary=[];
@@ -169,8 +169,10 @@ var ary=[];
 ary.push(htmlReg.exec(t1));
 ary.push(htmlReg.exec(t1));
 ary.push(htmlReg.exec(t1));
-ary.push(htmlReg.exec(t1));
-ary.push(htmlReg.exec(t1));
+
+ary.push(htmlReg.exec(t2));
+ary.push(htmlReg.exec(t2));
+
 console.log("ary",ary);
 
 

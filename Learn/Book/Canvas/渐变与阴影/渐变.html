@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>渐变</title>
+</head>
+<body>
+    <canvas id="mycanvas" width="800" height="800"></canvas>
+    <script>
+            var canvas=document.getElementById("mycanvas");
+            var ctx=canvas.getContext("2d");  
+            
+            /*横向渐变
+            var gnt=ctx.createLinearGradient(1, 0, 1, 40);
+            */
+            /*纵向渐变*/
+            //var gnt=ctx.createLinearGradient(1, 0, 1, 40);
+            
+            /*对角渐变*/
+            var gnt=ctx.createLinearGradient(0, 0, 150, 150);
+            gnt.addColorStop(0, 'red');
+            gnt.addColorStop(0.6,'yellow');
+            gnt.addColorStop(1,'blue');
+            ctx.fillStyle=gnt;
+            ctx.fillRect(0,0,150,50);
+            /*径向渐变
+            createRadialGradient   
+            */
+            
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>缩放</title>
+</head>
+<body>
+    <canvas id="mycanvas" width="500" height="500"></canvas>
+    <input type="button" value="放大" id="scal"/>
+    <input type="button" value="放小" id="scalSmall"/>
+    <script>
+        /*
+        scale(x,y):当前宽度*x放大的倍数，当前高度*y放大的倍数。
+
+        当x或y取值为0～1之间时，图形进行缩小；当x或y取值大于1时，图形进行放大。
+        大家想一下“倍数
+
+        scale会影响以下属性：
+        （1）左上角坐标。
+        （2）宽度或高度。
+        （3）线条宽度。
+        */
+        
+        var canvas=document.getElementById("mycanvas");
+        var ctx=canvas.getContext("2d");     
+        
+        ctx.fillStyle="hotpink";
+        ctx.fillRect(0,0,60,60);
+
+        ctx.fillStyle="red";
+        ctx.translate(60, 60);
+      
+        
+        document.getElementById("scal").addEventListener("click",function(){
+            ctx.clearRect(0,0,canvas.width,canvas.height);            
+            ctx.scale(1.5, 1.5);
+            ctx.fillRect(0,0,60,60);
+
+        },false);
+
+        document.getElementById("scalSmall").addEventListener("click",function(){
+            console.log(canvas.width,canvas.height);
+            ctx.clearRect(0,0,canvas.width,canvas.height); 
+            ctx.scale(0.5,0.5);
+            ctx.fillRect(0,0,60,60);
+
+        },false);
+
+    </script>
+</body>
+</html>

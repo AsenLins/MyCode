@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>箭头</title>
+    <style>
+        #mycanvas{
+            background-color:#eeeeee;
+        }
+    </style>
+    <script src="tool.js"></script>
+</head>
+<body>
+    <canvas id="mycanvas" width="350" height="100"></canvas>
+    <script>
+            var canvas=document.getElementById("mycanvas"),
+            tool=window.tool,
+            centX=canvas.width/2,
+            centY=canvas.height/2,
+            cxt=canvas.getContext("2d"),
+            mouse=tool.getPosition(canvas);
+
+            function Arrow() {
+                this.deg=0;
+            }
+
+            Arrow.prototype={
+                stroke:function(){
+
+               
+               
+                cxt.save();
+                cxt.translate(centX, centY);
+                cxt.rotate(this.deg);
+                console.log(this.deg);
+                cxt.strokeStyle = "red";
+                cxt.beginPath();
+                cxt.moveTo(-20, -10);
+                cxt.lineTo(0, -10);
+                cxt.lineTo(0, -20);
+                cxt.lineTo(20, 0);
+                cxt.lineTo(0, 20);
+                cxt.lineTo(0, 10);
+                cxt.lineTo(-20, 10);
+                cxt.closePath();
+                cxt.stroke();
+                cxt.restore();
+
+                }
+
+            }
+
+
+            var d=new Arrow();
+        
+            d.stroke(cxt,centX,centY);
+            
+
+            (function drawFrame() {
+                window.requestAnimationFrame(drawFrame, canvas);
+                cxt.clearRect(0, 0, canvas.width, canvas.height);
+                var dy=mouse.y-centY;
+                var dx=mouse.x-centX;
+                var deg=Math.atan2(dy,dx);
+                d.deg=deg;
+                d.stroke(cxt,centX,centY);
+
+            })();         
+
+        
+
+            
+            
+            
+
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>圆形</title>
+</head>
+<body>
+    <canvas id="mycanvas" width="900" height="900"></canvas>
+    <script>
+        /*
+        arc：绘制曲线。
+        arcTo:绘制弧线。
+
+        绘画路径步骤：
+        beginPath,描述路径，closePath，最后再绘画路径。
+
+        绘画圆形
+        beginPath,arc,closePath,最后再绘画路径
+
+
+        stroke方法一次只能绘制一个路径，不能同时绘制多个路径。
+
+        绘画封闭型图形时，如：圆，正方形，三角形等，要使用closePath()去闭合图形
+        绘画非封闭型图形时候，如：弧线，则不需要closePath。
+
+        */
+        (function(){
+            var canvas=document.getElementById("mycanvas"),
+            cxt=canvas.getContext("2d");
+
+            /*绘画半圆*/
+            cxt.beginPath();
+            cxt.arc(50,50,50,0,180*Math.PI/180,true);
+            cxt.closePath();
+
+            cxt.strokeStyle="red";
+            cxt.stroke();
+
+            /*填充整圆*/
+            cxt.beginPath();
+            cxt.arc(50,200,50,0,360*Math.PI/180,true);
+            cxt.closePath();
+            cxt.fillStyle="red";
+            cxt.fill();
+
+
+            /*逆时针绘画圆*/
+            cxt.beginPath();
+            cxt.arc(50,300,50,0,180*Math.PI/180,false);
+            cxt.closePath();
+
+            cxt.fillStyle="red";
+            cxt.fill();
+
+
+            /*绘画弧形,因为没有closePath,所以图形并不会闭合。*/
+
+            cxt.beginPath();
+            cxt.arc(50,400,50,0,180*Math.PI/180,false);
+            cxt.strokeStyle="red";
+            cxt.stroke();
+
+
+            /*自定义绘画路径*/
+
+            cxt.moveTo(50,500);
+            cxt.lineTo(100,500);
+            cxt.strokeStyle="red";
+            cxt.stroke();
+
+
+            cxt.beginPath();
+            cxt.arc(100,500,50,0,-90*Math.PI/180,true);
+            cxt.strokeStyle="red";
+            cxt.stroke();
+
+   
+
+
+
+        })();
+    
+    </script>
+</body>
+</html>

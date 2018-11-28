@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>旋转</title>
+</head>
+<body>
+    <canvas id="mycanvas" width="800" height="800"></canvas>
+    <input type="button" value="旋转" id="rotate"/>
+    <script>
+        /*
+        translate会改变当前起点，与moveTo一样
+        rotate(deg):将图旋转到指定度数，旋转的起点就是canvas默认的起点，使用translate可以改变旋转的中心（起点）。
+        
+        
+        */
+        
+        var canvas=document.getElementById("mycanvas");
+        var ctx=canvas.getContext("2d");     
+        
+        ctx.fillStyle="hotpink";
+        ctx.fillRect(0,0,60,60);
+
+        ctx.fillStyle="red";
+        ctx.translate(60, 60);
+      
+        
+        document.getElementById("rotate").addEventListener("click",function(){
+            ctx.rotate(10*Math.PI/180);
+            ctx.fillRect(0,0,60,60);
+
+        },false);
+
+    </script>
+</body>
+</html>

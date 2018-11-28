@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>渐变调色板</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+    
+    <canvas id="js-colorPanel"></canvas>
+    <script>
+        (function(){
+            var canvas=document.getElementById("js-colorPanel"),
+            ctx=canvas.getContext("2d"),
+            r=255,
+            g=0,
+            b=0;
+
+            for(var index=0;index<150;index++){
+                if(index<25){
+                    g=g+10;
+                }
+                else if(index>25&&index<50){
+                    r=r-10;
+                }
+                else if(index>50&&index<75){
+                    g=g-10;
+                    b=b+10;
+                }
+                else if(index>75&&index<100){
+                    r=r+10;
+                }
+                else{
+                    b=b-10;
+                }
+                console.log("rgb("+r+","+g+","+b+")");
+                ctx.fillStyle="rgb("+r+","+g+","+b+")";
+                ctx.fillRect(3*index,0,3,canvas.height);
+            }     
+
+            
+
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>正三角形</title>
+    <style>
+        .mycanvas{
+            background-color: #eeeeee;
+        }
+    </style>
+</head>
+<body>
+    <canvas class="mycanvas" id="mycanvas" width="600" height="300"></canvas>
+    <script>
+        /*
+            Math.PI=3.14;
+
+        */
+        var canvas=document.getElementById("mycanvas");
+        var ctx=canvas.getContext("2d");   
+
+
+        ct(ctx,3,100,100,20);
+        ctx.strokeStyle="red";
+        ctx.stroke();
+
+        function ct(cxt,n,dx,dy,size) {
+            cxt.beginPath();
+
+/*
+X坐标=a + Math.sin(角度 * (Math.PI / 180)) * r ；
+Y坐标=b + Math.cos(角数 * (Math.PI / 180)) * r ；
+
+*/
+
+            var degree = (2 * Math.PI )/ n;
+            for (var i = 0; i < n; i++) {
+                var x = Math.cos(i * degree);
+                var y = Math.sin(i * degree);
+                cxt.lineTo(x * size + dx, y * size + dy);
+                
+                console.log(x * size + dx, y * size + dy);
+            }
+            cxt.closePath();
+        }
+    </script>
+</body>
+</html>

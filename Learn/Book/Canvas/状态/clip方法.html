@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>clip方法</title>
+</head>
+<body>
+
+    <canvas id="mycanvas" width="800" height="800"></canvas>
+    <script>
+            /*
+            clip():把当前路径变成一个剪辑区域，后续的图形超出这个区域都不会显示。         
+            */
+            var canvas=document.getElementById("mycanvas");
+            var ctx=canvas.getContext("2d");    
+            ctx.beginPath();
+            ctx.arc(50,50,50,0,360*Math.PI/180,true);
+            ctx.closePath();
+            ctx.fillStyle="green";
+            ctx.strokeStyle="red";
+            ctx.stroke();
+
+            ctx.clip();
+
+            ctx.beginPath();
+            ctx.fillStyle="blue";
+            ctx.fillRect(50,40,100,100);
+           
+    </script>
+
+    
+</body>
+</html>

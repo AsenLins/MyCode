@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>绘制圆角矩形</title>
+    <style>
+    .mycanvas{
+        background-color: #eeeeee;
+    }
+    </style>
+</head>
+<body>
+    <canvas class="mycanvas" id="mycanvas" width="600" height="600"></canvas>
+    <script>
+        var canvas=document.getElementById("mycanvas"),
+        cxt=canvas.getContext("2d");
+        
+        cxt.moveTo(40,20);
+        cxt.lineTo(160,20);
+
+        cxt.arcTo(180,20,180,40,20);
+
+        cxt.moveTo(180,40);
+        cxt.lineTo(180,110);
+
+        cxt.arcTo(180,130,160,130,20);
+
+        cxt.moveTo(160,130);
+        cxt.lineTo(40,130);
+
+        cxt.arcTo(20,110,40,130,20);
+
+        cxt.moveTo(40,20);
+        cxt.lineTo(40,20)
+        
+
+        cxt.strokeStyle="red";
+        cxt.stroke();
+         
+    </script>
+</body>
+</html>

@@ -5,10 +5,45 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "chrome",
+            "request": "attach",
+            "name": "Attach to Chrome",
+            "port": 9222,
+            "webRoot": "${workspaceFolder}"
+        },
+        /*MAC*/
+        /*
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            
+            "runtimeExecutable":"/Users/asen/.nvm/versions/node/v10.13.0/bin/node",
+            //"program": "${workspaceFolder}/Learn/数据结构/LinkList.js",
+            "program": "${workspaceFolder}/Learn/Book/趣学算法/广度优先搜索.js",
+            
+        },
+        */
+        /*window*/
+        
+        {
             "type": "node",
             "request": "launch",
             "name": "启动程序",
-            "program": "${workspaceFolder}/MyProject\\template.js\\template.js"
+            //"program": "${workspaceFolder}/MyProject\\template.js\\template.js"
+            //"program": "${workspaceFolder}/Learn\\数据结构\\Queue.js",
+            //"program": "${workspaceFolder}/Learn\\数据结构\\PriorityQueue.js"
+            //"program": "${workspaceFolder}/Learn\\数据结构\\LinkList.js",
+            //"program": "${workspaceFolder}/Learn\\数据结构\\List.js",
+            //"program": "${workspaceFolder}/Learn\\数据结构\\HashTable.js",
+            //"program": "${workspaceFolder}/Learn\\数据结构\\ES6独有的数据结构\\Map.js",
+            //"program": "${workspaceFolder}/Learn\\数据结构\\ES6独有的数据结构\\WeakMap与WeakSet.js",
+            //"program": "${workspaceFolder}/Learn\\Book\\趣学算法\\广度优先搜索.js",
+            "program": "${workspaceFolder}/Learn\\数据结构\\Graph.js",
+            
+            
         }
+        
+        
     ]
 }

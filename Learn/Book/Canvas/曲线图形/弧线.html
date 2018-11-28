@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>弧线</title>
+</head>
+<body>
+    <canvas id="mycanvas" width="900" height="900"></canvas>
+    <script>
+        
+        /*
+        arcTo(cx,cy,x2,y2,radius);
+        (cx , cy) 表示控制点的坐标，(x2 , y2) 表示结束点的坐标，radius 表示圆弧的半径。
+        如果我们想要画一条弧线，需要提供三个点的坐标：开始点、控制点和结束点。其中。
+
+        如果开始点不是弧线起点，arcTo() 方法还将添加一条当前端点到弧线起点的直线线段。
+
+                
+        */
+
+        var canvas=document.getElementById("mycanvas"),
+        cxt=canvas.getContext("2d");
+        /*使用arcTo绘制路径*/
+        cxt.moveTo(0,0);
+
+        cxt.arcTo(600,600,400,500,40);
+        cxt.strokeStyle="red"
+        cxt.stroke();   
+    </script>
+
+
+
+</body>
+</html>
