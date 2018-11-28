@@ -25,11 +25,17 @@
     }
 </script>
 
-<style scoped >
+<style scope land="scss">
 /*行-默认样式（栅栏系统）*/
 .b-row{
     position: relative;
     top: 0px;
+    a{
+        background-color: red;
+    }
+        
+   
+
 }
 .b-row.default{
     float: left;
