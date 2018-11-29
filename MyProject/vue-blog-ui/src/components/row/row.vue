@@ -25,17 +25,14 @@
     }
 </script>
 
-<style scope land="scss">
+<style  lang="scss">
 /*行-默认样式（栅栏系统）*/
 .b-row{
     position: relative;
     top: 0px;
-    a{
+    .a{
         background-color: red;
     }
-        
-   
-
 }
 .b-row.default{
     float: left;
