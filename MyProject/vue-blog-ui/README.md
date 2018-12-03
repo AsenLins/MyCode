@@ -3,6 +3,31 @@
 > This is a blog UI framework，这是一个用于建立博客的UI框架,基于vue 2.0
 
 
+### vue 插件开发API
+- reder函数的使用
+https://cn.vuejs.org/v2/guide/render-function.html#%E6%B7%B1%E5%85%A5-data-%E5%AF%B9%E8%B1%A1
+
+### 开发工具
+- storybook:用于查看组件以及状态，以及文档。
+- 测试工具未定。
+
+
+### 组件库的分离与引入思路：
+样式使用Scss,并且与组件分离, 組件分为全局引入以及部分引入
+全局引入：
+引入組件的入口文件:index.js
+引入組件的樣式文件:index.scss
+
+部分引入:
+使用NodeJs插件：babel-plugin-component去引入组件以及对应的css。
+https://github.com/ElementUI/babel-plugin-component
+
+### 组件的语法提示：
+vscode的代码段，并发布到vscode上
+https://www.cnblogs.com/caipeiyu/p/5507252.html
+
+
+
 ## TODO
 
 
@@ -46,5 +71,8 @@
 
 #### 字体，图标
 未定
+
+
+
 
 
