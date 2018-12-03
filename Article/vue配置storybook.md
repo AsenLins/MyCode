@@ -22,13 +22,28 @@ cnpm i --save-dev @babel/core babel-preset-vue
 在生成好的.storybook目录新建一个webpack.config.js,配置如下：
 
 ```
+/*storybook的webpack配置文件，用于配置storybook需要加载的文件。*/
 module.exports = {
+
+    resolve: {
+      alias: {
+        'vue$': 'vue/dist/vue.esm.js'
+      }
+    },
     module: {
       rules: [
         {
-            test: /\.vue$/,
-            loader: 'vue-loader'
-          }       
+          test: /\.vue$/,
+          loader: 'vue-loader'
+        },
+        {
+          test: /\.scss$/,
+          use: [
+              "style-loader",
+              "css-loader", 
+              "sass-loader" 
+          ]
+        }        
       ]
     }
   }
