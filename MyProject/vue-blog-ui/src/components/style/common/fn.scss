@@ -1,0 +1,9 @@
+
+
+@import './variables.scss';
+
+
+/*px to rem*/
+@function fn-pxToRem($px){
+    @return $px/$var-htmlFontSize+rem;
+}

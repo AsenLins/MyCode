@@ -1,0 +1,28 @@
+body{
+    padding: 16px!important;
+    margin: 0px;
+}
+
+.demo-box{
+    padding: 10px; 
+    background-color:#ea573d;
+    border-radius: 4px;
+    margin-top: 15px;
+}
+
+.demo-box>div{
+    border-right: 4px solid #ea573d;
+    text-align: center;
+    height: 45px;
+    line-height: 45px;
+    background-color: #fbc063;
+    border-radius: 2px;
+}
+.demo-box>div:last-child{
+    border: 0;
+}
+
+/*
+#ea573d    #fbc063    #64b0bc    
+#446699    #555577    
+*/

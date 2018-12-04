@@ -1,0 +1,42 @@
+
+@import './common/fn.scss';
+@import './common/variables.scss'; 
+
+body{
+    padding: 0px;
+    font-size: $var-htmlFontSize;
+    color: $var-font-color;
+    font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+
+h1,h2,h3,h4,a,img,input,button,div,span{
+    box-sizing: border-box;
+}
+
+h1{
+    font-size: fn-pxToRem(30);
+}
+
+h2{
+    font-size: fn-pxToRem(21);
+}
+
+h3{
+    font-size: fn-pxToRem(16);
+}
+
+h4{
+    font-size: fn-pxToRem(14);
+}
+
+a{
+    text-decoration: none;
+}
+
+img{
+    border: 0px;
+}
+
+input,button{
+    
+}

@@ -1,0 +1,18 @@
+/*列*/
+@import './common/variables.scss';
+
+@function createCol($colNum){
+    @return 100%/8*$colNum;
+}
+
+.bl-col{
+    float: left;
+    min-height: 20px;
+}
+
+@for $index from 1 through $var-maxCol{
+    .bl-col.c#{$index}{
+        width: createCol($index);
+    }
+}
+

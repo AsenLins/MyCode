@@ -1,17 +1,30 @@
     @import './common/variables.scss';
-    
+
     /*默认float栅栏布局*/
-    .bl-row.default{
-        float:left;
+    .bl-row{
+        box-sizing: border-box;
+        &::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
     }
-    
+
     /*flex布局*/
     .bl-row.flex{
         display: flex;
     }
-
+    
     /*inline-block布局*/
     .bl-row.lineBlock{
+  
         display: inline-block;
     }
+
+   
+
+
+
+
+
 
