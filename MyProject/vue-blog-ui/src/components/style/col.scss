@@ -1,18 +1,28 @@
 /*列*/
 @import './common/variables.scss';
 
+
 @function createCol($colNum){
-    @return 100%/8*$colNum;
+    @return 100%/$var-maxCol*$colNum;
+}
+
+@function createColOffset($offsetNum){
+    @return 100%/$var-maxCol*$offsetNum;
 }
 
 .bl-col{
     float: left;
     min-height: 20px;
-}
-
-@for $index from 1 through $var-maxCol{
-    .bl-col.c#{$index}{
-        width: createCol($index);
+    @for $index from 1 through $var-maxCol{
+        &.c#{$index}{
+            width: createCol($index);
+        }
+        &.offset#{$index}{
+            margin-left:createColOffset($index)
+        }
     }
 }
+
+
+
 

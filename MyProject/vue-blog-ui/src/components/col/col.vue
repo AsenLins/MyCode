@@ -1,26 +1,44 @@
 
 <script>
-    
+    /** */
     export default {
         name:"bl-col",
         props:{
             span:{
-                type:String,
+                type:Number,
                 default:function(){
-                    return "1"
+                    return 1;
                 }
             },
-            text:{
-                type:String
+            offset:{
+                type:Number,
+                default:function(){
+                    return 0;
+                }
             },
+
             align:String
         },
         render:function(createElement){
+            
+            console.log("parent",this.$parent);
+            const parentProps={
+                gutter:this.$parent.gutter
+            },
+            renderClass=[
+                "bl-col",
+                "c"+this.span,
+                this.offset>0?"offset"+this.offset:""
+            ],
+            renderStyle=[
+                parentProps.gutter>0?" margin-left:"+(parentProps.gutter/2)+"px":""
+            ];
+            console.log("style",renderStyle.join(" "));
 
-            console.log("传过来的值是：",this.text);
             return createElement('div',
             {
-                class:"bl-col c"+this.span
+                class:renderClass.join(" "),
+                style:renderStyle.join(" ")
             },
             this.$slots.default
             );

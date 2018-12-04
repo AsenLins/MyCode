@@ -13,6 +13,9 @@ h1,h2,h3,h4,a,img,input,button,div,span{
     box-sizing: border-box;
 }
 
+h1,h2,h3,h4{
+    border-bottom: 1px solid #eeeeee;
+}
 h1{
     font-size: fn-pxToRem(30);
 }

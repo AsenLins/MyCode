@@ -11,7 +11,7 @@
           <bl-col span="4">col.2</bl-col>
       </bl-row>
 
-     <bl-row :gutter="5" class="demo-box">
+     <bl-row class="demo-box">
          <bl-col span="2">col.1</bl-col>
          <bl-col span="2">col.2</bl-col>
          <bl-col span="2">col.3</bl-col>
@@ -27,6 +27,32 @@
           <bl-col>col.6</bl-col>
           <bl-col>col.7</bl-col>
           <bl-col>col.8</bl-col>
+      </bl-row>
+
+   
+      <bl-row>
+          <h2>offset:列偏移</h2>
+      </bl-row>
+
+      <bl-row class="demo-box">
+          <bl-col>col.1</bl-col>
+          <bl-col :offset="1">offset.1</bl-col>
+          <bl-col :offset="1">col.1</bl-col>
+          <bl-col :offset="1">offset.1</bl-col>
+          <bl-col >offset.1</bl-col>
+    
+      </bl-row>
+
+      <bl-row>
+          <h2>gutter:列间距</h2>
+      </bl-row>
+      <bl-row :gutter="5" class="demo-box">
+          <bl-col>col.1</bl-col>
+          <bl-col>col.2</bl-col>
+          <bl-col>col.3</bl-col>
+          <bl-col>col.4</bl-col>
+
+    
       </bl-row>
 
     </div>
