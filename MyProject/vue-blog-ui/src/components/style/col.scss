@@ -12,7 +12,10 @@
 }
 
 .bl-col{
-    float: left;
+    &.default{
+        float: left;
+    }
+    
     
     @for $index from 1 through $var-maxCol{
         &.c#{$index}{

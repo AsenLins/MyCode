@@ -28,9 +28,11 @@ export default {
         /*当前父组件的配置参数*/
         const parentProps = {
                 gutter: this.$parent.gutter,
-                type:this.$parent.type
+                type:this.$parent.type,
+                xAlign:this.$parent.xAlign,
+                yAlign:this.$parent.yAlign
         },
-    
+
         /*row控件类型 */
         layoutType={
             default:"default",
@@ -41,11 +43,12 @@ export default {
         /*当前渲染row类型*/
         curLayoutType=layoutType[parentProps.type],
 
-        /*根据类型创建不同的class*/
+        /*根据当前类型创建不同的class*/
         buildColClass={
+                /*栅栏布局样式*/
                 default:()=>{
                     const renderClass = [
-                        "bl-col",
+                        "bl-col default",
                         "c" + this.span,
                         this.offset > 0 ? "offset" + this.offset : "",
                         mixin.buildStyleClass([
@@ -56,14 +59,16 @@ export default {
                         ], this.$options.name + "-" + "g-" + parentProps.gutter + "-s-" + this.span)
                     ];
 
-                    return  renderClass.join(" ");
+                    return renderClass.join(" ");
                 },
+                /*flex布局样式*/
                 flex:()=>{
 
                 },
+                /*inline-block布局样式*/
                 inline:()=>{
                     const renderClass = [
-                        "bl-col inline"
+                        "bl-col inline"                      
                     ]
                     return renderClass.join(" ");
                 }
@@ -72,7 +77,7 @@ export default {
         /*获取建造好的class */
         curRenderClass=buildColClass[curLayoutType]();
 
-        console.log("当前类型",curLayoutType);
+        console.log("当前x是",parentProps);
 
         return createElement('div', {
                 class: curRenderClass

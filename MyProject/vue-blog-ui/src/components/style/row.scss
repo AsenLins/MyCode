@@ -20,40 +20,52 @@
   
         display: inline-block;
         
-        /*水平属性*/
-        &.h-center{
-            text-align: center;
-        }
-        &.h-left{
-            text-align: left;
-        }
-        &.h-right{
-            text-align: right;
-        }
-
-        /*垂直属性*/
-        &.v-top{
-            vertical-align: top;
-        }
-
-        &.v-middle{
-            vertical-align: middle;
-        }
-
-        &.v-bottom{
-            vertical-align: bottom;
-        }
-
         &::before{
             content:"";
             display:inline-block;
             height: 100%;
-            vertical-align: middle;           
+                      
         }
+
         &::after{
             content:"";
             display:inline-block;
-        }     
+        }          
+        
+        /*水平属性*/
+        &.center{
+            text-align: center;
+        }
+        &.left{
+            text-align: left;
+        }
+        &.right{
+            text-align: right;
+        }
+
+        /*垂直属性*/
+        &.top{
+            vertical-align: top;
+            &::before{
+                vertical-align: top;
+            }  
+        }
+
+        &.middle{
+            vertical-align: middle;
+            &::before{
+                vertical-align: middle;
+            }           
+        }
+
+        &.bottom{
+            vertical-align: bottom;
+            &::before{
+                vertical-align: bottom;
+            }               
+        }
+
+   
     }
 
     
