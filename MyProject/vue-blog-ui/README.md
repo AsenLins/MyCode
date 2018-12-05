@@ -26,6 +26,9 @@ https://github.com/ElementUI/babel-plugin-component
 vscode的代码段，并发布到vscode上
 https://www.cnblogs.com/caipeiyu/p/5507252.html
 
+### 遇到的问题
+- 能否让col组件的span动态配置，也就是可以在程序里动态获取span数..
+
 
 
 ## TODO

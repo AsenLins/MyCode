@@ -1,49 +1,86 @@
 
 <script>
-    /** */
-    export default {
-        name:"bl-col",
-        props:{
-            span:{
-                type:Number,
-                default:function(){
-                    return 1;
-                }
-            },
-            offset:{
-                type:Number,
-                default:function(){
-                    return 0;
-                }
-            },
+/*列控件*/
 
-            align:String
+
+import mixin from '../../core/mixin';
+
+export default {
+    name: "bl-col",
+    props: {
+        span: {
+            type: Number,
+            default: function() {
+                return 1;
+            }
         },
-        render:function(createElement){
-            
-            console.log("parent",this.$parent);
-            const parentProps={
-                gutter:this.$parent.gutter
-            },
-            renderClass=[
-                "bl-col",
-                "c"+this.span,
-                this.offset>0?"offset"+this.offset:""
-            ],
-            renderStyle=[
-                parentProps.gutter>0?" margin-left:"+(parentProps.gutter/2)+"px":""
-            ];
-            console.log("style",renderStyle.join(" "));
+        offset: {
+            type: Number,
+            default: function() {
+                return 0;
+            }
+        },
 
-            return createElement('div',
-            {
-                class:renderClass.join(" "),
-                style:renderStyle.join(" ")
+        align: String
+    },
+    render: function(createElement) {
+
+        /*当前父组件的配置参数*/
+        const parentProps = {
+                gutter: this.$parent.gutter,
+                type:this.$parent.type
+        },
+    
+        /*row控件类型 */
+        layoutType={
+            default:"default",
+            flex:"flex",
+            inline:"inline"
+        },
+
+        /*当前渲染row类型*/
+        curLayoutType=layoutType[parentProps.type],
+
+        /*根据类型创建不同的class*/
+        buildColClass={
+                default:()=>{
+                    const renderClass = [
+                        "bl-col",
+                        "c" + this.span,
+                        this.offset > 0 ? "offset" + this.offset : "",
+                        mixin.buildStyleClass([
+                            parentProps.gutter > 0 ?
+                            "width:calc(" + 100 / 8 * this.span + "% - " + parentProps.gutter + "px);" +
+                            "margin-right:" + parentProps.gutter / 2 + "px;" +
+                            "margin-left:" + parentProps.gutter / 2 + "px;" : ""
+                        ], this.$options.name + "-" + "g-" + parentProps.gutter + "-s-" + this.span)
+                    ];
+
+                    return  renderClass.join(" ");
+                },
+                flex:()=>{
+
+                },
+                inline:()=>{
+                    const renderClass = [
+                        "bl-col inline"
+                    ]
+                    return renderClass.join(" ");
+                }
+        },
+        
+        /*获取建造好的class */
+        curRenderClass=buildColClass[curLayoutType]();
+
+        console.log("当前类型",curLayoutType);
+
+        return createElement('div', {
+                class: curRenderClass
             },
             this.$slots.default
-            );
-        }
+        );
     }
+}
 </script>
 
 <style scoped>

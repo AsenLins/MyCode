@@ -3,15 +3,21 @@ import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
 
-import '../../demo.scss';
-import '../../../components/style/index.scss';
-import rowView from './row.vue';
+import '../demo.scss';
+import '../../components/style/index.scss';
+
+import fencesView from './fences.vue';
+import inlineView from './inline.vue'
 
 /*注意这里用的是箭头函数 */
 storiesOf('布局', module)
-.add('row',()=>({
-  components:{rowView},
-  template: '<rowView />',
+.add('栅栏布局',()=>({
+  components:{fencesView},
+  template: '<fencesView />',
+}))
+.add('行布局',()=>({
+  components:{inlineView},
+  template: '<inlineView />',
 }))
 
 /*

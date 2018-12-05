@@ -1,18 +1,19 @@
 /*列*/
 @import './common/variables.scss';
 
-
+/*栅栏列函数*/
 @function createCol($colNum){
     @return 100%/$var-maxCol*$colNum;
 }
 
+/*列间隔函数*/
 @function createColOffset($offsetNum){
     @return 100%/$var-maxCol*$offsetNum;
 }
 
 .bl-col{
     float: left;
-    min-height: 20px;
+    
     @for $index from 1 through $var-maxCol{
         &.c#{$index}{
             width: createCol($index);
@@ -20,6 +21,10 @@
         &.offset#{$index}{
             margin-left:createColOffset($index)
         }
+    }
+    
+    &.inline{
+        display: inline-block;
     }
 }
 
