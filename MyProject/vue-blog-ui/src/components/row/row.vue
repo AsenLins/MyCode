@@ -8,13 +8,43 @@ import mixin from '../../core/mixin.js';
 export default {
     name: "bl-row",
     props: {
-        xAlign:String,
-        yAlign:{
-            type:String, 
-            default:function(){
+        AlignX: String,
+        AlignY: {
+            type: String,
+            default: function() {
                 return "top";
             }
         },
+        flexX:{
+            type:String,
+            default:function(){
+                return "start";
+            }
+        },
+        flexY:{
+            type:String,
+            default:function(){
+                return "start";
+            }
+        },
+        isReverse:{
+            type:Boolean,
+            default:function(){
+                return false;
+            }
+        },
+        isCol:{
+            type:Boolean,
+            default:function(){
+                return false;
+            }
+        },
+        isNowrap:{
+            type:Boolean,
+            default:function(){
+                return false;
+            }
+        },      
         type: {
             type: String,
             default: function() {
@@ -30,60 +60,92 @@ export default {
     },
     render: function(createElement) {
 
-        const rowClass={
+        const rowClass = {
             default: "bl-row default",
-            flex: "bl-row flex",
-            inline: "bl-row lineBlock",
-
-            xAlign:{
-                left:"left",
-                center:"center",
-                right:"right"
+            inline:{
+                base:"bl-row lineBlock",
+                AlignX:{
+                    left: "left",
+                    center: "center",
+                    right: "right",
+                    justify:"justify"                   
+                },
+                AlignY:{
+                    top: "top",
+                    middle: "middle",
+                    bottom: "bottom"                   
+                }
             },
-            yAlign:{
-                top:"top",
-                middle:"middle",
-                bottom:"bottom"
-            }
+           flex:{
+              row:{
+                base:"bl-row flex set-row",
+                reverse:"set-row-reverse"
+              },
+              col:{
+                base:"bl-row flex set-col",
+                reverse:"set-col-reverse"
+              },
+              common:{
+                wraps:{
+                    wrap:"set-wrap",
+                    nowrap:"set-no-wrap",
+                    wrapReverse:"set-wrap-reverse"
+                },
+                justify:{
+                    start:"set-justify-start",
+                    end:"set-justify-end",
+                    center:"set-justify-center",
+                    between:"set-justify-between",
+                    around:"set-justify-around",
+                },
+                align:{
+                    start:"set-align-start",
+                    end:"set-align-end",
+                    center:"set-align-center",
+                    baseline:"set-align-baseline",
+                    stretch:"set-align-stretch",
+                }
+              }
+           }
         }
 
-        const classList = {
-            default: "bl-row default",
-            flex: "bl-row flex",
-            inline: "bl-row lineBlock"
-        }
 
-
-        const renderClass = [
-            classList[this.type]
-        ]
-
-        const buildRowClass={
-            scope:this,
-            default(){
+        
+        const buildRowClass = {
+            scope: this,
+            default () {
                 return [
                     rowClass.default
                 ].join(" ");
             },
-            flex(){
-                
-            },
-            inline:function(){
-
-                console.log("inline",this);
+            flex() {
                 return[
-                    rowClass.inline,
-                    rowClass.xAlign[this.scope.xAlign]||"",
-                    rowClass.yAlign[this.scope.yAlign]||""
+                    this.scope.isCol===true?rowClass.flex.col.base:rowClass.flex.row.base,
+                    rowClass.flex.common.align[this.scope.flexY],
+                    rowClass.flex.common.justify[this.scope.flexX],
+                    this.scope.isReverse===true&&this.scope.isCol===true?rowClass.flex.col.reverse:"",
+                    this.scope.isReverse===true&&this.scope.isCol===false?rowClass.flex.row.reverse:"",
+                    this.scope.isNowrap===true?rowClass.flex.common.wraps.nowrap:"",
+                    this.scope.isNowrap===true&&this.isReverse===true? rowClass.flex.common.wraps.wrapReverse:""
+                ].join(" ")
+            },
+            inline: function() {
+                return [
+                    rowClass.inline.base,
+                    rowClass.inline.AlignX[this.scope.AlignX] || "",
+                    rowClass.inline.AlignY[this.scope.AlignY] || ""
                 ].join(" ");
             }
-        } 
-  
+        }
+
+        console.log("flex",buildRowClass[this.type]());
+
+
         return createElement(
             "div", {
                 class: buildRowClass[this.type]()
             },
-            this.$slots.default,
+            this.$slots.default
         );
 
     }

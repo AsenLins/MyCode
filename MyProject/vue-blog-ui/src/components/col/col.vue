@@ -28,59 +28,57 @@ export default {
         /*当前父组件的配置参数*/
         const parentProps = {
                 gutter: this.$parent.gutter,
-                type:this.$parent.type,
-                xAlign:this.$parent.xAlign,
-                yAlign:this.$parent.yAlign
-        },
+                type: this.$parent.type,
+                xAlign: this.$parent.xAlign,
+                yAlign: this.$parent.yAlign
+            },
 
-        /*row控件类型 */
-        layoutType={
-            default:"default",
-            flex:"flex",
-            inline:"inline"
-        },
+            /*col class */
+            colClass = {
+                default: "bl-col default",
+                inline: "bl-col inline",
+                flex: "",
+                span: "c",
+                offset: "offset",
+            },
 
-        /*当前渲染row类型*/
-        curLayoutType=layoutType[parentProps.type],
+            /*根据当前类型创建不同的class*/
+            buildColClass = {
+                scope: this,
 
-        /*根据当前类型创建不同的class*/
-        buildColClass={
                 /*栅栏布局样式*/
-                default:()=>{
+                default () {
                     const renderClass = [
-                        "bl-col default",
-                        "c" + this.span,
-                        this.offset > 0 ? "offset" + this.offset : "",
+                        colClass.default,
+                        colClass.span + this.scope.span,
+                        this.scope.offset > 0 ? colClass.offset + this.scope.offset : "",
                         mixin.buildStyleClass([
                             parentProps.gutter > 0 ?
-                            "width:calc(" + 100 / 8 * this.span + "% - " + parentProps.gutter + "px);" +
+                            "width:calc(" + 100 / 8 * this.scope.span + "% - " + parentProps.gutter + "px);" +
                             "margin-right:" + parentProps.gutter / 2 + "px;" +
                             "margin-left:" + parentProps.gutter / 2 + "px;" : ""
-                        ], this.$options.name + "-" + "g-" + parentProps.gutter + "-s-" + this.span)
+                        ], this.scope.$options.name + "-" + "g-" + parentProps.gutter + "-s-" + this.scope.span)
                     ];
 
                     return renderClass.join(" ");
                 },
+
                 /*flex布局样式*/
-                flex:()=>{
+                flex() {
 
                 },
+
                 /*inline-block布局样式*/
-                inline:()=>{
+                inline() {
                     const renderClass = [
-                        "bl-col inline"                      
+                        colClass.inline
                     ]
                     return renderClass.join(" ");
                 }
-        },
-        
-        /*获取建造好的class */
-        curRenderClass=buildColClass[curLayoutType]();
-
-        console.log("当前x是",parentProps);
+            }
 
         return createElement('div', {
-                class: curRenderClass
+                class: buildColClass[parentProps.type]()
             },
             this.$slots.default
         );

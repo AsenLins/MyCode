@@ -1,13 +1,5 @@
 <template>
     <div>
-        <!--
-        <div class="myclass" style="display:inline-block; height:100px; background-color:#eeeeee; width:300px;vertical-align:middle;">
-            <div style="display:inline-block">
-                    3
-            </div>
-            <div style="display:inline-block">2</div>
-        </div>
-        -->
         <bl-row>
             <h2>inline布局</h2>
         </bl-row>
@@ -15,7 +7,7 @@
         <bl-row>
             <h3>左对齐</h3>
         </bl-row>
-        <bl-row class="demo-box box-2" type="inline" x-align="left">
+        <bl-row class="demo-box box-2" type="inline" align-x="left">
             <bl-col>col.1</bl-col>
             <bl-col>col.2</bl-col>
             <bl-col>col.3</bl-col>
@@ -25,7 +17,7 @@
             <h3>居中对齐</h3>
         </bl-row>
 
-        <bl-row class="demo-box box-2" type="inline" x-align="center">
+        <bl-row class="demo-box box-2" type="inline" align-x="center">
             <bl-col>col.1</bl-col>
             <bl-col>col.2</bl-col>
             <bl-col>col.3</bl-col>
@@ -33,7 +25,7 @@
         <bl-row>
             <h3>右对齐</h3>
         </bl-row>
-        <bl-row class="demo-box box-2" type="inline" x-align="right">
+        <bl-row class="demo-box box-2" type="inline" align-x="right">
             <bl-col>col.1</bl-col>
             <bl-col>col.2</bl-col>
             <bl-col>col.3</bl-col>
@@ -43,7 +35,7 @@
             <h3>垂直左对齐</h3>
         </bl-row>
 
-         <bl-row class="demo-box box-2" type="inline" x-align="left" y-align="middle">
+         <bl-row class="demo-box box-2" type="inline" align-x="left" align-y="middle">
             <bl-col>col.1</bl-col>
             <bl-col>col.2</bl-col>
             <bl-col>col.3</bl-col>
@@ -52,7 +44,7 @@
             <h3>垂直居中</h3>
         </bl-row>
 
-         <bl-row class="demo-box box-2" type="inline" x-align="center" y-align="middle">
+         <bl-row class="demo-box box-2" type="inline" align-x="center" align-y="middle">
             <bl-col>col.1</bl-col>
             <bl-col>col.2</bl-col>
             <bl-col>col.3</bl-col>
@@ -62,17 +54,23 @@
             <h3>垂直右对齐</h3>
         </bl-row>
 
-         <bl-row class="demo-box box-2" type="inline" x-align="right" y-align="middle">
+         <bl-row class="demo-box box-2" type="inline" align-x="right" align-y="middle">
             <bl-col>col.1</bl-col>
             <bl-col>col.2</bl-col>
             <bl-col>col.3</bl-col>
         </bl-row>  
-        <!--
-        <bl-row type="inline">
-            <bl-col>1</bl-col>
+
+
+        <bl-row>
+            <h3>垂直两边对齐</h3>
         </bl-row>
-        -->
-    
+
+         <bl-row class="demo-box box-2" type="inline" align-x="justify" align-y="middle">
+            <bl-col>col.1</bl-col>
+            <bl-col>col.2</bl-col>
+            <bl-col>col.3</bl-col>
+        </bl-row>
+
     </div>
 </template>
 

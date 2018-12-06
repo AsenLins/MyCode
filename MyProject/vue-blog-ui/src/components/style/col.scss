@@ -11,6 +11,10 @@
     @return 100%/$var-maxCol*$offsetNum;
 }
 
+/*flex align-self*/
+$flex-align-self:(auto:auto,start:flex-start,end:flex-end,center:center,baseline:baseline,stretch:stretch);
+
+
 .bl-col{
     &.default{
         float: left;
@@ -25,7 +29,18 @@
             margin-left:createColOffset($index)
         }
     }
-    
+
+    &.flex{
+
+        &.align{
+            @each $className,$value in $flex-align-self {
+                .#{$className}{
+                    align-self:$value;
+                }
+            }
+        }
+    }
+
     &.inline{
         display: inline-block;
     }

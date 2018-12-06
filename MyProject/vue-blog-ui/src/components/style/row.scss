@@ -1,4 +1,13 @@
     @import './common/variables.scss';
+    
+    /*flex的水平与垂直属性*/
+    $flex-justify:(start:flex-start,end:flex-end,center:center,between:space-between,arount:space-around);
+    $flex-align:(start: flex-start,end:flex-end,center:center,baseline:baseline,stretch:stretch);
+
+    /*inline-block水平与垂直属性*/
+    $line-justify:(center:center,left:left,right:right,justify:justify);
+    $line-align:(top:top,middle:middle,bottom:bottom);
+  
 
     /*默认float栅栏布局*/
     .bl-row{
@@ -9,10 +18,51 @@
             clear: both;
         }
     }
-
+    
     /*flex布局*/
     .bl-row.flex{
         display: flex;
+        
+        &.set-row{
+            flex-direction:row;
+        }
+        
+        &.set-row-reverse{
+            flex-direction:row-reverse;
+        }
+        
+        &.set-col{
+            flex-direction:column;
+        }
+
+        &.set-col-reverse{
+            flex-direction:column-reverse;
+        }
+        &.set-wrap{
+            flex-wrap: wrap;
+        }
+        &.set-no-wrap{
+            flex-wrap:nowrap;
+        }
+       
+        &.set-wrap-reverse{
+            flex-wrap:wrap-reverse;
+        }
+        
+
+        @each $className,$value in $flex-justify{
+            &.set-justify-#{$className}{
+                justify-content:$value;
+            }
+        } 
+        
+
+        @each $className,$value in $flex-align{
+            &.set-align-#{$className}{
+                align-items:$value;
+            }
+        }           
+
     }
     
     /*inline-block布局*/
@@ -23,49 +73,30 @@
         &::before{
             content:"";
             display:inline-block;
-            height: 100%;
-                      
+            height: 100%;         
         }
 
         &::after{
             content:"";
             display:inline-block;
+            width: 100%;
         }          
         
         /*水平属性*/
-        &.center{
-            text-align: center;
-        }
-        &.left{
-            text-align: left;
-        }
-        &.right{
-            text-align: right;
-        }
-
-        /*垂直属性*/
-        &.top{
-            vertical-align: top;
-            &::before{
-                vertical-align: top;
-            }  
-        }
-
-        &.middle{
-            vertical-align: middle;
-            &::before{
-                vertical-align: middle;
-            }           
-        }
-
-        &.bottom{
-            vertical-align: bottom;
-            &::before{
-                vertical-align: bottom;
-            }               
-        }
-
-   
+        @each $className,$value in $line-justify{
+            &.#{$className}{
+                text-align:$value;
+            }
+        } 
+        /*垂直属性 */
+        @each $className,$value in $line-align{
+            &.#{$className}{
+                vertical-align:$value;
+                &::before{
+                    vertical-align:$value;
+                }
+            }
+        } 
     }
 
     
