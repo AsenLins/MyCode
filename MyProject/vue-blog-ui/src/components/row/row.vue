@@ -18,13 +18,25 @@ export default {
         flexX:{
             type:String,
             default:function(){
-                return "start";
+                return "auto";
             }
         },
         flexY:{
             type:String,
             default:function(){
-                return "start";
+                return "auto";
+            }
+        },
+        alignContent:{
+          type:String,
+          default:function(){
+              return "stretch"
+          }  
+        },
+        isWrapReverser:{
+            type:Boolean,
+            default:function(){
+                return false;
             }
         },
         isReverse:{
@@ -92,18 +104,28 @@ export default {
                     wrapReverse:"set-wrap-reverse"
                 },
                 justify:{
+                    auto:"set-justify-auto",
                     start:"set-justify-start",
                     end:"set-justify-end",
                     center:"set-justify-center",
                     between:"set-justify-between",
-                    around:"set-justify-around",
+                    around:"set-justify-around"
                 },
                 align:{
+                    auto:"set-align-auto",
                     start:"set-align-start",
                     end:"set-align-end",
                     center:"set-align-center",
                     baseline:"set-align-baseline",
-                    stretch:"set-align-stretch",
+                    stretch:"set-align-stretch"
+                },
+                alignContent:{
+                    start:"set-alignContent-start",
+                    end:"set-alignContent-end",
+                    center:"set-alignContent-center",
+                    between:"set-alignContent-between",
+                    around:"set-alignContent-around",
+                    stretch:"set-alignContent-stretch"
                 }
               }
            }
@@ -119,14 +141,17 @@ export default {
                 ].join(" ");
             },
             flex() {
+                console.warn("alignContent=====",this.scope.alignContent);
                 return[
                     this.scope.isCol===true?rowClass.flex.col.base:rowClass.flex.row.base,
                     rowClass.flex.common.align[this.scope.flexY],
                     rowClass.flex.common.justify[this.scope.flexX],
+                    rowClass.flex.common.alignContent[this.scope.alignContent],
                     this.scope.isReverse===true&&this.scope.isCol===true?rowClass.flex.col.reverse:"",
                     this.scope.isReverse===true&&this.scope.isCol===false?rowClass.flex.row.reverse:"",
-                    this.scope.isNowrap===true?rowClass.flex.common.wraps.nowrap:"",
-                    this.scope.isNowrap===true&&this.isReverse===true? rowClass.flex.common.wraps.wrapReverse:""
+                    this.scope.isNowrap===true?rowClass.flex.common.wraps.nowrap:rowClass.flex.common.wraps.wrap,
+                    this.scope.isWrapReverser===true?rowClass.flex.common.wraps.wrapReverse:""
+
                 ].join(" ")
             },
             inline: function() {

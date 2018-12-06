@@ -14,6 +14,15 @@ export default {
                 return 1;
             }
         },
+        aligneSelf:{
+            type:String,
+            default:function(){
+                return "auto";
+            }
+        },
+        flex:{
+            type:String
+        },
         offset: {
             type: Number,
             default: function() {
@@ -37,7 +46,16 @@ export default {
             colClass = {
                 default: "bl-col default",
                 inline: "bl-col inline",
-                flex: "",
+                flex:{
+                    aligneSelf:{
+                        auto:"set-align-auto",
+                        start:"set-align-start",
+                        end:"set-align-end",
+                        center:"set-align-center",
+                        baseline:"set-align-baseline",
+                        stretch:"set-align-stretch"                       
+                    }
+                },
                 span: "c",
                 offset: "offset",
             },
@@ -65,7 +83,9 @@ export default {
 
                 /*flex布局样式*/
                 flex() {
-
+                    return[
+                        colClass.flex
+                    ]
                 },
 
                 /*inline-block布局样式*/

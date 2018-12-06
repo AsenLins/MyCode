@@ -56,14 +56,14 @@
         </bl-row>
 
         <h4>flex:顶部居中</h4>
-        <bl-row class="demo-box"  type="flex" flex-x="start" flex-y="center">
+        <bl-row class="demo-box"  type="flex" flex-x="center" flex-y="start">
            <bl-col>col.1</bl-col>
            <bl-col>col.2</bl-col>
            <bl-col>col.3</bl-col>
            <bl-col>col.4</bl-col>
         </bl-row>
         <h4>flex:底部居中</h4>
-        <bl-row class="demo-box" type="flex" flex-x="end" flex-y="center">
+        <bl-row class="demo-box" type="flex" flex-x="center" flex-y="end">
            <bl-col>col.1</bl-col>
            <bl-col>col.2</bl-col>
            <bl-col>col.3</bl-col>
@@ -86,6 +86,14 @@
 
         <h4>flex:行倒序</h4>
         <bl-row class="demo-box" :is-reverse="true"  type="flex" flex-x="end" flex-y="center">
+           <bl-col>col.1</bl-col>
+           <bl-col>col.2</bl-col>
+           <bl-col>col.3</bl-col>
+        </bl-row>
+
+
+        <h4>flex:align-content</h4>
+        <bl-row class="demo-box big-col" align-content="center"  :is-reverse="true"  type="flex" flex-x="end" flex-y="center">
            <bl-col>col.1</bl-col>
            <bl-col>col.2</bl-col>
            <bl-col>col.3</bl-col>
@@ -115,5 +123,11 @@
     padding: 3px;
     margin-top:2px;
     margin-bottom: 2px;
+ }
+ .demo-box.big-col{
+    height: 180px;
+ }
+ .demo-box.big-col>div{
+   width: 450px;
  }
 </style>

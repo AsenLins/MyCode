@@ -1,9 +1,10 @@
     @import './common/variables.scss';
     
     /*flex的水平与垂直属性*/
-    $flex-justify:(start:flex-start,end:flex-end,center:center,between:space-between,arount:space-around);
-    $flex-align:(start: flex-start,end:flex-end,center:center,baseline:baseline,stretch:stretch);
-
+    $flex-justify:(auto:auto,start:flex-start,end:flex-end,center:center,between:space-between,arount:space-around);
+    $flex-align:(auto:auto,start: flex-start,end:flex-end,center:center,baseline:baseline,stretch:stretch);
+    $flex-align-content:(start:flex-start,end:flex-end,center:center,between:space-between,arount:space-around,stretch:stretch);
+    
     /*inline-block水平与垂直属性*/
     $line-justify:(center:center,left:left,right:right,justify:justify);
     $line-align:(top:top,middle:middle,bottom:bottom);
@@ -11,12 +12,15 @@
 
     /*默认float栅栏布局*/
     .bl-row{
-        box-sizing: border-box;
-        &::after{
-            content: '';
-            display: block;
-            clear: both;
+        &.default{
+            &::after{
+                content: '';
+                display: block;
+                clear: both;
+            }
         }
+        box-sizing: border-box;
+
     }
     
     /*flex布局*/
@@ -61,7 +65,12 @@
             &.set-align-#{$className}{
                 align-items:$value;
             }
-        }           
+        }  
+        @each $className,$value in $flex-align-content{
+            &.set-alignContent-#{$className}{
+                align-content:$value;
+            }
+        }          
 
     }
     
