@@ -99,6 +99,15 @@
            <bl-col>col.3</bl-col>
         </bl-row>
 
+        <h4>align-item</h4>
+        <bl-row class="demo-box big-col"  align-content="center"   type="flex" flex-x="end" flex-y="center">
+           <bl-col aligne-self="end" :grow="2"  >col.1</bl-col>
+           <bl-col>col.2</bl-col>
+         
+        </bl-row>
+
+
+
 
     </div>
 </template>

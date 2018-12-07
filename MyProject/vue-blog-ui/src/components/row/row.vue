@@ -64,7 +64,7 @@ export default {
             }
         },
         isMultiInlineblock:{
-            type:String,
+            type:Boolean,
             default:function(){
                 return false
             }

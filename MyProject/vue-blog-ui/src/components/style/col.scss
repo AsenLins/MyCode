@@ -16,6 +16,18 @@ $flex-align-self:(auto:auto,start:flex-start,end:flex-end,center:center,baseline
 
 
 
+/*响应式
+大于>1200px (电脑)
+
+
+大于768<1024 设备（平板）
+
+小与768设备 手机
+
+
+*/
+
+
 .bl-col{
     &.default{
         float: left;
@@ -33,11 +45,9 @@ $flex-align-self:(auto:auto,start:flex-start,end:flex-end,center:center,baseline
 
     &.flex{
 
-        &.align{
-            @each $className,$value in $flex-align-self {
-                .#{$className}{
-                    align-self:$value;
-                }
+        @each $className,$value in $flex-align-self {
+            &.set-align-#{$className}{
+                align-self:$value;
             }
         }
         

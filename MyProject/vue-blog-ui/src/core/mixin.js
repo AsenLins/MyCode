@@ -30,8 +30,8 @@ const mixinFn={
         
         /*创建class */
         const  sourceStyle=style.innerHTML,
-        appendStyleClassName=name+".customStyle",
-        returnClassName=name+" customStyle";
+        appendStyleClassName=name+"-customStyle",
+        returnClassName=name+"-customStyle";
         if(sourceStyle.indexOf(appendStyleClassName)===-1){
             const newStyle="."+appendStyleClassName+"{"+styleStr+"}";
             style.innerHTML=sourceStyle+newStyle;    

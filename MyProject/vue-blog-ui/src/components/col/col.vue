@@ -71,6 +71,7 @@ export default {
                     base:"bl-col inline"
                 },
                 flex:{
+                    base:"bl-col flex",
                     aligneSelf:{
                         auto:"set-align-auto",
                         start:"set-align-start",
@@ -107,6 +108,7 @@ export default {
 
                 /*flex布局样式*/
                 flex() {
+                    
                     const hasSetFlexClass= this.scope.grow+this.scope.basis+this.scope.order+ this.scope.shrink;
                     var flexClassName,
                     flexStyle;
@@ -122,19 +124,20 @@ export default {
                         "-b",
                         this.scope.basis,
                         "-o",
-                        this.scope.order,
-                        "customStyle"
-                        ].join(); 
+                        this.scope.order
+                        ].join(""); 
 
                         flexStyle=[
+                            "flex:",
                             this.scope.grow>0?this.scope.grow+" ":"0 ",
                             this.scope.shrink>0?this.scope.shrink+" ":"1 ",
                             this.scope.basis>0?this.scope.basis:"auto"
-                        ]
+                        ].join("");
                     }
 
                     return[
-                        colClass.flex,
+                        colClass.flex.base,
+                        colClass.flex.aligneSelf[this.scope.aligneSelf],
                         hasSetFlexClass>0?mixin.buildStyleClass([
                             flexStyle
                         ],flexClassName):""
