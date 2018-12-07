@@ -20,6 +20,30 @@ export default {
                 return "auto";
             }
         },
+        order:{
+            type:Number,
+            default:function(){
+                return 0;
+            }
+        },
+        grow:{
+            type:Number,
+            default:function(){
+                return 0;
+            }
+        },
+        shrink:{
+            type:Number,
+            default:function(){
+                return 0;
+            }
+        },
+        basis:{
+            type:Number,
+            default:function(){
+                return 0
+            }
+        },
         flex:{
             type:String
         },
@@ -28,9 +52,7 @@ export default {
             default: function() {
                 return 0;
             }
-        },
-
-        align: String
+        }
     },
     render: function(createElement) {
 
@@ -45,7 +67,9 @@ export default {
             /*col class */
             colClass = {
                 default: "bl-col default",
-                inline: "bl-col inline",
+                inline: {
+                    base:"bl-col inline"
+                },
                 flex:{
                     aligneSelf:{
                         auto:"set-align-auto",
@@ -83,15 +107,45 @@ export default {
 
                 /*flex布局样式*/
                 flex() {
+                    const hasSetFlexClass= this.scope.grow+this.scope.basis+this.scope.order+ this.scope.shrink;
+                    var flexClassName,
+                    flexStyle;
+                 
+                    if(hasSetFlexClass>0){
+                        flexClassName=
+                        [
+                        "flexCol-",
+                        "g-",
+                        this.scope.grow,
+                        "-s",
+                        this.scope.shrink,
+                        "-b",
+                        this.scope.basis,
+                        "-o",
+                        this.scope.order,
+                        "customStyle"
+                        ].join(); 
+
+                        flexStyle=[
+                            this.scope.grow>0?this.scope.grow+" ":"0 ",
+                            this.scope.shrink>0?this.scope.shrink+" ":"1 ",
+                            this.scope.basis>0?this.scope.basis:"auto"
+                        ]
+                    }
+
                     return[
-                        colClass.flex
+                        colClass.flex,
+                        hasSetFlexClass>0?mixin.buildStyleClass([
+                            flexStyle
+                        ],flexClassName):""
+
                     ]
                 },
 
                 /*inline-block布局样式*/
                 inline() {
                     const renderClass = [
-                        colClass.inline
+                        colClass.inline.base,
                     ]
                     return renderClass.join(" ");
                 }

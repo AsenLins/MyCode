@@ -76,8 +76,11 @@
     
     /*inline-block布局*/
     .bl-row.lineBlock{
-  
+        .set-moreLineBlock{
+            display: inline-block;
+        }
         display: inline-block;
+        width: 100%;
         
         &::before{
             content:"";
@@ -88,7 +91,7 @@
         &::after{
             content:"";
             display:inline-block;
-            width: 100%;
+            /* width: 100%;*/
         }          
         
         /*水平属性*/

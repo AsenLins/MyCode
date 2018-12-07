@@ -1,5 +1,30 @@
 <template>
     <div>
+
+        <div class="name" style=" display:inline-block; background-color:#eeeeee; height:400px; width:400px; vertical-align: middle;">
+            <div class="name-demo" style="display:inline-block;">
+                <div style="display:inline-block">11</div>
+                4399
+                <div style="display:inline-block">44</div>
+                <div style="display:inline-block">11</div>
+                4399
+                <div style="display:inline-block">44</div>
+                <div style="display:inline-block">11</div>
+                4399
+                <div style="display:inline-block">44</div>
+                <div style="display:inline-block">11</div>
+                4399
+                <div style="display:inline-block">44</div>
+                <div style="display:inline-block">11</div>
+                4399
+                <div style="display:inline-block">44</div>
+            </div>
+        </div>
+
+
+
+
+
         <h4> flex-direction: column</h4>
         <div class="box flex-1">
             <div>col.1</div>
@@ -39,6 +64,8 @@
             <div>col.3</div>
             <div>col.4</div>
             <div>col.5</div>
+
+            
         </div>   
     </div>
 </template>
@@ -97,4 +124,17 @@ export default {
     容器属性：
 
     */
+
+    .name::before{
+        content:"";
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
+      
+        background-color: green;
+    }
+
+    .name-demo{
+        
+    }
 </style>

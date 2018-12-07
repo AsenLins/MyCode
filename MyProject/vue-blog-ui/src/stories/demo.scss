@@ -10,6 +10,19 @@ body{
     margin-top: 15px;
 }
 
+.demo-box-auto{
+    padding: 10px; 
+    background-color:#ea573d;
+    border-radius: 4px;
+    margin-top: 15px;   
+}
+.demo-box-auto>div{
+    text-align: center;
+
+    background-color: #fbc063;
+    border-radius: 2px;   
+}
+
 .demo-box>div{
     
     text-align: center;

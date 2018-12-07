@@ -15,6 +15,7 @@
 $flex-align-self:(auto:auto,start:flex-start,end:flex-end,center:center,baseline:baseline,stretch:stretch);
 
 
+
 .bl-col{
     &.default{
         float: left;
@@ -43,7 +44,7 @@ $flex-align-self:(auto:auto,start:flex-start,end:flex-end,center:center,baseline
     }
 
     &.inline{
-        display: inline-block;
+        display: inline-block;       
     }
 }
 
