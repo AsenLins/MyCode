@@ -41,6 +41,36 @@ $flex-align-self:(auto:auto,start:flex-start,end:flex-end,center:center,baseline
         &.offset#{$index}{
             margin-left:createColOffset($index)
         }
+        
+
+/*
+$var-screen-lg:1200px;
+
+$var-screen-sm:720px;
+
+$var-screen-md:920px;
+*/
+
+        @media (min-width: $var-screen-sm) {
+            &.sm{
+                
+            }
+        }
+
+        @media(min-width:$var-screen-md){
+            &.md{
+                
+            }
+        }
+
+        @media(min-width:$var-screen-lg){
+            &.lg{
+
+            }
+        }
+
+
+        
     }
 
     &.flex{
