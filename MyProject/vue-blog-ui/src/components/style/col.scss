@@ -1,7 +1,7 @@
 /*列*/
 @import './common/variables.scss';
 
-/*默认列宽度 1200*/
+/*栅栏宽度*/
 @function createCol($colNum){
     @return 100%/$var-maxCol*$colNum;
 }
@@ -43,7 +43,6 @@ $flex-align-self:(auto:auto,start:flex-start,end:flex-end,center:center,baseline
                     float: left;
                     width: createCol($index);
                 }
-
 
                 &.offset#{$index}{
                     margin-left:createColOffset($index)
