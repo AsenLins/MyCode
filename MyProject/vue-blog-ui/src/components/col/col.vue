@@ -52,6 +52,30 @@ export default {
             default: function() {
                 return 0;
             }
+        },
+        sm:{
+            type:Number,
+            default:function(){
+                return 0;
+            }
+        },
+        md:{
+            type:Number,
+            default:function(){
+                return 0;
+            }
+        },
+        mdOffset:{
+            type:Number,
+            default:function(){
+                return 0;
+            }
+        },
+        smOffset:{
+            type:Number,
+            default:function(){
+                return 0;
+            }
         }
     },
     render: function(createElement) {
@@ -81,8 +105,12 @@ export default {
                         stretch:"set-align-stretch"                       
                     }
                 },
-                span: "c",
-                offset: "offset",
+                span:{
+                    lg:"lg",
+                    md:"md",
+                    sm:"sm",
+                },
+                offset:"offset",
             },
 
             /*根据当前类型创建不同的class*/
@@ -92,14 +120,21 @@ export default {
                 /*栅栏布局样式*/
                 default () {
                     const renderClass = [
+                       
                         colClass.default,
-                        colClass.span + this.scope.span,
+                        colClass.span.lg+" "+colClass.span.lg +"-"+this.scope.span,                       
+                        this.scope.sm>0&&colClass.span.sm+" "+colClass.span.sm+"-"+this.scope.sm,
+                        this.scope.md>0&&colClass.span.md+" "+colClass.span.md+"-"+this.scope.md,
+                        this.scope.mdOffset>0?colClass.span.md+" "+colClass.offset+this.scope.mdOffset:"",
+                        this.scope.smOffset>0?colClass.span.sm+" "+colClass.offset+this.scope.smOffset:"",
+                        //this.scope.smOffset>0?colClass.span
+                       
                         this.scope.offset > 0 ? colClass.offset + this.scope.offset : "",
                         mixin.buildStyleClass([
                             parentProps.gutter > 0 ?
-                            "width:calc(" + 100 / 8 * this.scope.span + "% - " + parentProps.gutter + "px);" +
-                            "margin-right:" + parentProps.gutter / 2 + "px;" +
-                            "margin-left:" + parentProps.gutter / 2 + "px;" : ""
+                            //"width:calc(" + 100 / 8 * this.scope.span + "% - " + parentProps.gutter + "px);" +
+                            "padding-right:" + parentProps.gutter / 2 + "px;" +
+                            "padding-left:" + parentProps.gutter / 2 + "px;" : ""
                         ], this.scope.$options.name + "-" + "g-" + parentProps.gutter + "-s-" + this.scope.span)
                     ];
 

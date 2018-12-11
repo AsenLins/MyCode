@@ -7,8 +7,13 @@
           <bl-col :span="8">col.1</bl-col>
       </bl-row>
       <bl-row :gutter="5" class="demo-box">
-          <bl-col :span="4">col.1</bl-col>
-          <bl-col :span="4">col.2</bl-col>
+          <bl-col :sm="3" :md="3" :span="4">
+              <bl-row>
+                  <bl-col :sm="1" :md="4" :span="4">1</bl-col>
+                  <bl-col :sm="6" :sm-offset="1" :md="3" :span="3">2</bl-col>
+              </bl-row>
+          </bl-col>
+          <bl-col :offset="1" :span="3" :sm="4" :md="4">col.2</bl-col>
       </bl-row>
 
      <bl-row :gutter="5" class="demo-box">

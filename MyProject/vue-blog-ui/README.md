@@ -36,8 +36,14 @@ https://www.cnblogs.com/caipeiyu/p/5507252.html
 
 
 #### 布局
-- [ ] 行 row
-- [ ] 列 col
+- [x] 行 row
+- [x] 列 col
+
+**已完成 flex | inline | 栅栏布局。**
+```
+功能待定：
+1. 是否添加列排序..
+```
 
 #### 基础样式
 - [ ] h,a,p,i,em,code,label,b,input,button
