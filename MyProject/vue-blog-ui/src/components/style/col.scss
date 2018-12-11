@@ -19,7 +19,6 @@ $flex-align-self:(auto:auto,start:flex-start,end:flex-end,center:center,baseline
         top: 0px;
     }
 
-
     @media (min-width:$var-screen-lg){
         @for $index from 1 through $var-maxCol{
                 &.lg{
