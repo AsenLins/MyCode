@@ -126,9 +126,7 @@ export default {
                         this.scope.sm>0&&colClass.span.sm+" "+colClass.span.sm+"-"+this.scope.sm,
                         this.scope.md>0&&colClass.span.md+" "+colClass.span.md+"-"+this.scope.md,
                         this.scope.mdOffset>0?colClass.span.md+" "+colClass.offset+this.scope.mdOffset:"",
-                        this.scope.smOffset>0?colClass.span.sm+" "+colClass.offset+this.scope.smOffset:"",
-                        //this.scope.smOffset>0?colClass.span
-                       
+                        this.scope.smOffset>0?colClass.span.sm+" "+colClass.offset+this.scope.smOffset:"",                       
                         this.scope.offset > 0 ? colClass.offset + this.scope.offset : "",
                         mixin.buildStyleClass([
                             parentProps.gutter > 0 ?

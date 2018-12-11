@@ -48,7 +48,7 @@ https://www.cnblogs.com/caipeiyu/p/5507252.html
 #### 基础样式
 - [ ] h,a,p,i,em,code,label,b,input,button
 
-#### 容器
+#### 容器 
 - [ ] 外层容器container
 - [ ] 顶部容器header
 - [ ] 底部容器footer
@@ -58,6 +58,7 @@ https://www.cnblogs.com/caipeiyu/p/5507252.html
 
 #### 基本组件
 - [ ] 头图 Banner
+- [ ] 文章分类label
 - [ ] 文章列表 articleList
 - [ ] 分类列表 TypeList
 - [ ] 头像 pic
