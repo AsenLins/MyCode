@@ -3,6 +3,7 @@ const app=express();
 const port=process.env.PORT||5044;
 
 
+
 app.get('/',(req,res)=>{
     res.send("hello world");
 });
@@ -10,3 +11,5 @@ app.get('/',(req,res)=>{
 app.listen(port,()=>{
     console.log("server is start:",port);
 });
+
+
