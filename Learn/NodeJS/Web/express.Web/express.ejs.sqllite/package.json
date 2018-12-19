@@ -8,12 +8,15 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env PORT=6004 node index.js",
-    "startApi": "cross-env PORT=6005 node webapi.js"
+
+    "start": "cross-env PORT=5604 node index.js",
+    "startapi": "cross-env PORT=5605 node webapi.js"
+
   },
   "author": "asen",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "sqlite3": "^4.0.4"
