@@ -1,0 +1,7 @@
+{
+  "name": "as",
+  "version": "1",
+  "dependencies": {
+    "async": "^2.6.1"
+  }
+}
