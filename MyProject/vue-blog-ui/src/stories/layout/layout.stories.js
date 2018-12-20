@@ -12,6 +12,11 @@ import flexView from './flex.vue';
 import flex2View from './flex2.vue';
 import containerView from './container.vue';
 
+
+
+
+
+
 /*注意这里用的是箭头函数 */
 storiesOf('布局', module)
 .add('栅栏布局',()=>({

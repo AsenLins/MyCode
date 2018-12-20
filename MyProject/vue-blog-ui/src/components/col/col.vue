@@ -3,6 +3,7 @@
 /*列控件*/
 
 
+
 import mixin from '../../core/mixin';
 
 export default {
@@ -79,7 +80,10 @@ export default {
         }
     },
     render: function(createElement) {
-
+       
+        if(this.$parent===undefined){
+            return "";
+        }
         /*当前父组件的配置参数*/
         const parentProps = {
                 gutter: this.$parent.gutter,

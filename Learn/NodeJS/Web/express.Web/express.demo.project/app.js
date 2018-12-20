@@ -38,4 +38,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+app.get("/post",entries.form);
+app.get("/post",entries.submit); 
+
 module.exports = app;
