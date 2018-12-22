@@ -2,7 +2,6 @@
 <script>
 /*行控件*/
 
-
 import mixin from '../../core/mixin.js';
 
 export default {
@@ -151,7 +150,7 @@ export default {
                 ].join(" ");
             },
             flex() {
-                console.warn("alignContent=====", this.scope.alignContent);
+               
                 return [
                     this.scope.isCol === true ? rowClass.flex.col.base : rowClass.flex.row.base,
                     rowClass.flex.common.align[this.scope.flexY],

@@ -1,4 +1,0 @@
-cnpm i --save-dev @storybook/vue
-cnpm i --save vue
-cnpm i --save-dev babel-loader vue-loader vue-template-compiler
-cnpm i --save-dev @babel/core babel-preset-vue

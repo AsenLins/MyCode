@@ -1,7 +1,7 @@
 /*列*/
 @import './common/variables.scss';
 
-/*栅栏列函数*/
+/*栅栏宽度*/
 @function createCol($colNum){
     @return 100%/$var-maxCol*$colNum;
 }
@@ -13,34 +13,58 @@
 
 /*flex align-self*/
 $flex-align-self:(auto:auto,start:flex-start,end:flex-end,center:center,baseline:baseline,stretch:stretch);
-
-
-
-/*响应式
-大于>1200px (电脑)
-
-
-大于768<1024 设备（平板）
-
-小与768设备 手机
-
-
-*/
-
-
 .bl-col{
     &.default{
-        float: left;
+        position: relative;
+        top: 0px;
     }
-    
-    
-    @for $index from 1 through $var-maxCol{
-        &.c#{$index}{
-            width: createCol($index);
+
+    @media (min-width:$var-screen-lg){
+        @for $index from 1 through $var-maxCol{
+                &.lg{
+                    &-#{$index}{
+                        float: left;
+                        width: createCol($index);
+                    }
+
+                    &.offset#{$index}{
+                        margin-left:createColOffset($index)
+                    }
+            }         
         }
-        &.offset#{$index}{
-            margin-left:createColOffset($index)
+    }
+
+ 
+    @media (max-width: $var-screen-sm) {
+        @for $index from 1 through $var-maxCol{
+            &.sm{
+                &-#{$index}{
+                    float: left;
+                    width: createCol($index);
+                }
+
+                &.offset#{$index}{
+                    margin-left:createColOffset($index)
+                }
+            }
         }
+    }
+
+    @media(min-width: $var-screen-sm) and(max-width:$var-screen-md){
+        @for $index from 1 through $var-maxCol{
+            &.md{
+                &-#{$index}{
+                    float: left;
+                    width: createCol($index);
+                }
+                
+                &.offset#{$index}{
+                    margin-left:createColOffset($index)
+                }
+            }
+
+        }
+
     }
 
     &.flex{

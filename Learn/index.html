@@ -1,12 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
 </head>
 <body>
-    Hello
+        <script>
+
+            alert("test");
+                function user(){
+                    this.name="sam";
+        
+                }
+                user.prototype={
+                    load:function(){
+                        var self=this;
+        
+                        test(function(){
+                            console.log("self is",this);
+        
+                        });
+                    }
+                }
+        
+                function  test(fn) {
+                    fn();
+                }
+        
+
+                window.onload=function(){
+                    var userobj=new user();
+                userobj.load();
+                
+}
+
+
+            </script>  
 </body>
 </html>

@@ -10,6 +10,12 @@ import fencesView from './fences.vue';
 import inlineView from './inline.vue';
 import flexView from './flex.vue';
 import flex2View from './flex2.vue';
+import containerView from './container.vue';
+
+
+
+
+
 
 /*注意这里用的是箭头函数 */
 storiesOf('布局', module)
@@ -28,6 +34,10 @@ storiesOf('布局', module)
 .add('flex布局2',()=>({
   components:{flex2View},
   template: '<flex2View />',
+}))
+.add('容器',()=>({
+  components:{containerView},
+  template: '<containerView />',
 }))
 
 /*
