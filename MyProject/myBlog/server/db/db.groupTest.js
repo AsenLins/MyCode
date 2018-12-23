@@ -23,8 +23,16 @@ articleCollection.insert({_id:uuidv1(),name:'a4',age:10,label:'vue'},function(re
 });
 */
 
+/*
 articleCollection.group(['label'],(result)=>{
     console.log("得到的result是：",result);
 });
+*/
 
 
+
+articleCollection.groupNew({
+    keys:['label'],
+    fn:(result)=>{
+    console.log("得到的result是：",result);
+}});

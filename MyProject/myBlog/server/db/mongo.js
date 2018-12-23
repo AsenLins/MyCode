@@ -35,34 +35,32 @@ class mongoDB{
         if(arguments.length<2){
             throw new Error("调用mongo方法参数不正确,至少要有一个条件列和调用方法名称。");
         }
-
-        const paramArg=arguments[0];
-
-        if(paramArg.length<1){
+        if(arguments[0].length<1){
             throw new Error("参数必须有条件和回调函数");
         }
 
-        const methodName=arguments[arguments.length-1],
+        /*包装调用参数*/
+        const paramArg=arguments[0],
+        methodName=arguments[arguments.length-1],
         methodParams=[],
-        callBack=paramArg[paramArg.length-1];
+        callBack=paramArg[paramArg.length-1],
+        wrapCallBack=function(err,result){
+            if(err) throw err;
+            callBack(result);
+        }
         
-        
-        for(var index=0,argLenght=paramArg.length;index<argLenght;index++){
-            console.log("调用");
+        /*把arguments对象转换成数组 */
+        for(var index=0,argLenght=paramArg.length;index<argLenght-1;index++){
             methodParams.push(paramArg[index]);
         }
-        console.log("调用的参数列表是：",methodName);
+
+        /*添加自定义的回调方法*/
+        methodParams.push(wrapCallBack);
  
-        /*还没写完，这里 */
+        /*调用mongo*/
         this._initDB((db,client)=>{
-            console.log("dbname",db[methodName]);
-            db["group"](['lable'],{},{"count":0}, (obj,prev)=>{ prev.count++; },function(err,result){
-                console.log("result",result);
-            })
-            db[methodName].call(db,methodParams,(err,result)=>{
-                if(err) throw err;
-                callBack(result);
-            });
+            console.log("mongo param is",methodParams);       
+            db[methodName].apply(db,methodParams);           
         });
     }
 
@@ -148,10 +146,32 @@ class mongoDB{
         });
     }
 
+    testFn({a,b=1,c=3}={}){
+        console.log(b)
+        console.log("参数",arguments);
+    }
+
+    groupNew({
+        keys=[],
+        condition={},
+        initial={"count":0},
+        reduce=(obj,prev)=>{prev.count++;},
+        fn=null}){
+
+        this._buildMethod.call(this,[keys,condition,initial,reduce,fn],"group");
+    }
+
     /*获取分组*/
     group(condition=[],fn){
-  
-        this._buildMethod.call(this,arguments,"group");
+        const params=[
+            condition,
+            {},
+            {"count":0},
+            (obj,prev)=>{prev.count++;},
+            fn
+        ]
+        console.log("外层参数",params);
+        this._buildMethod.call(this,params,"group");
 
         /*
         this._initDB((db,client)=>{

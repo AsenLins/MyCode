@@ -9,9 +9,6 @@ app.all("/api/*",(req,res,next)=>{
         pwd:"asenblog443"
     }
 
-    
-
-
     try{
         console.log("cool");
         console.log(d);        
