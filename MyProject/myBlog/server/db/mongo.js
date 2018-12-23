@@ -156,7 +156,8 @@ class mongoDB{
         condition={},
         initial={"count":0},
         reduce=(obj,prev)=>{prev.count++;},
-        fn=null}){
+        fn=null})
+    {
 
         this._buildMethod.call(this,[keys,condition,initial,reduce,fn],"group");
     }
