@@ -1,7 +1,7 @@
-const app=require("../config/app");
+const authorizeRouter=require("express").Router();
 
 /*接口授权*/
-app.all("/api/*",(req,res,next)=>{
+authorizeRouter.all("/api/*",(req,res,next)=>{
 
     const secret="45B26236-B60A-4122-AF5B-8FF63D30F8BA";
     const login={
@@ -21,11 +21,11 @@ app.all("/api/*",(req,res,next)=>{
 }); 
 
 
-app.post("/api/loginBlog",(req,res,next)=>{
+authorizeRouter.post("/api/loginBlog",(req,res,next)=>{
     
 });
 
 
 
 
-module.exports=app;
+module.exports=authorizeRouter;

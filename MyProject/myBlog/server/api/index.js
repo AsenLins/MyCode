@@ -1,7 +1,16 @@
-require("./authorize");
-require("./article");
-require("./errorLog");
-require("./visitor");
+const apiArticleRouter=require("./article");
+const apiAuthorizeRouter=require("./authorize");
+const apiErrorLogRouter=require("./errorLog");
+const apiVisitorRouter=require("./visitor");
+
+
+
+module.exports=[
+    apiAuthorizeRouter,
+    apiArticleRouter,
+    apiErrorLogRouter,
+    apiVisitorRouter
+]
 
 
 
