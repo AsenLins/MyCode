@@ -1,7 +1,8 @@
 const app=require("./config/app");
 const prot=3000;
 
-require("./api/authorize");
+
+require("./api/index");
 require("./config/errorHandle");
 
 

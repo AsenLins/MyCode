@@ -2,17 +2,32 @@ const dbConnect=require("mongodb").MongoClient;
 
 
 
-
-
 class mongoDB{
-    constructor(option){
-        
+    constructor(collectionName){
+
         /*mongo地址*/
         this.url="mongodb://localhost:27017";
         /*数据库名称*/
         this.dbName="asenblog";
         /*集合名称*/
-        this.collectionName=option.collectionName;
+        this.collectionName=collectionName;
+        /*数据库连接配置 */
+        this.config={
+            useNewUrlParser: true
+        }
+        /*api名称 */
+        this.apiName={
+            insertOne:"insertOne",
+            find:"find",
+            findOne:"findOne",
+            findOneAndUpdate:"findOneAndUpdate",
+            findOneAndDelete:"findOneAndDelete",
+            group:"group",
+            distinct:"distinct",
+            count:"count"
+        }
+
+     
     }
     /**
      *初始化mongodb数据库连接
@@ -21,7 +36,7 @@ class mongoDB{
      * @memberof mongoDB
      */
     _initDB(fn){
-        dbConnect.connect(this.url,(err,client)=>{
+        dbConnect.connect(this.url,this.config,(err,client)=>{
             if(err) throw err;
             const db = client.db(this.dbName).collection(this.collectionName);
             fn(db,client);
@@ -29,9 +44,11 @@ class mongoDB{
         })
     }
 
-    _buildMethod(){
+    _actionBuilder(){
+        /*
         console.log("参数列表是：",arguments);
         console.log("参数长度是：",arguments.length);
+        */
         if(arguments.length<2){
             throw new Error("调用mongo方法参数不正确,至少要有一个条件列和调用方法名称。");
         }
@@ -44,9 +61,14 @@ class mongoDB{
         methodName=arguments[arguments.length-1],
         methodParams=[],
         callBack=paramArg[paramArg.length-1],
-        wrapCallBack=function(err,result){
-            if(err) throw err;
-            callBack(result);
+        wrapCallBack=function(err,data){
+            //if(err) throw err;
+            if(data.result!==undefined){
+                callBack(err,data.result);
+            }else{
+                callBack(err,data);
+            }
+          
         }
         
         /*把arguments对象转换成数组 */
@@ -56,11 +78,11 @@ class mongoDB{
 
         /*添加自定义的回调方法*/
         methodParams.push(wrapCallBack);
- 
+       
         /*调用mongo*/
-        this._initDB((db,client)=>{
-            console.log("mongo param is",methodParams);       
-            db[methodName].apply(db,methodParams);           
+        return this._initDB((db,client)=>{
+            //console.log("mongo param is",methodParams);       
+            return db[methodName].apply(db,methodParams);           
         });
     }
 
@@ -71,134 +93,98 @@ class mongoDB{
      * @param {*} fn
      * @memberof mongoDB
      */
-    insert(condition={},fn){
-        this._initDB((db,client)=>{
-            db.insertOne(condition,(err,result)=>{
-                if(err) throw err;
-                fn(result); 
-            });
-        });
+    insertOne({addObj={},fn}){
+        this._actionBuilder.call(this,[addObj,fn],this.apiName.insertOne);
     }
 
     /**
      *获取多个文档
      *
-     * @param {*} [condition={}]
+     * @param {*} [where={}]
      * @param {*} fn
      * @memberof mongoDB
      */
-    getList(condition={},fn){
-        this._initDB((db,client)=>{
-            db.find(condition).toArray((err,result)=>{
-                if(err) throw err;
-                fn(result);
-            })
-        });
+    find({where={},fn}){
+        this._actionBuilder.call(this,[where,fn],this.apiName.find);
     }
 
     /**
-     *后去单个文档
+     *获取单个文档
      *
-     * @param {*} [condition={}]
+     * @param {*} [where={}]
      * @param {*} fn
      * @memberof mongoDB
      */
-    getOne(condition={},fn){
-        this._initDB((db,client)=>{
-            db.findOne(condition,function(err,result){
-                if(err) throw err;
-                fn(result);
-            });
-        });
+    findOne({where={},fn}){
+        this._actionBuilder.call(this,[where,fn],this.apiName.findOne);
     }
+
 
     /**
      *更新文档
      *
-     * @param {*} [condition={}]
-     * @param {*} [updateObj={}]
+     * @param {*} [where={}]
+     * @param {*} [update={}]
      * @param {*} fn
      * @memberof mongoDB
      */
-    update(condition={},updateObj={},fn){
-        this._initDB((db,client)=>{
-
-            db.findOneAndUpdate(condition,{$set:updateObj},(err,result)=>{
-                if(err) throw err;
-                fn(result);
-            });
-        });
+    findOneAndUpdate({where={},update={},fn}){
+        this._actionBuilder.call(this,[where,{$set:update},fn],this.apiName.findOneAndUpdate);
     }
 
     /**
      *删除文档
      *
-     * @param {*} [condition={}]
+     * @param {*} [where={}]
      * @param {*} fn
      * @memberof mongoDB
      */
-    remove(condition={},fn){
-        this._initDB((db,client)=>{
-            db.findOneAndDelete(condition,(err,result)=>{
-                if(err) throw err;
-                fn(result);
-            })
-        });
+    findOneAndDelete({where={},fn}){
+        this._actionBuilder.call(this,[where,fn],this.apiName.findOneAndDelete)
     }
 
-    testFn({a,b=1,c=3}={}){
-        console.log(b)
-        console.log("参数",arguments);
-    }
-
-    groupNew({
+    /**
+     *获取分组
+     *
+     * @param {*} {
+     *         keys=[],
+     *         where={},
+     *         initial={"count":0},
+     *         reduce=(obj,prev)=>{prev.count++;},
+     *         fn=null}
+     * @memberof mongoDB
+     */
+    group({
         keys=[],
-        condition={},
+        where={},
         initial={"count":0},
         reduce=(obj,prev)=>{prev.count++;},
         fn=null})
     {
 
-        this._buildMethod.call(this,[keys,condition,initial,reduce,fn],"group");
+        this._actionBuilder.call(this,[keys,where,initial,reduce,fn],this.apiName.group);
     }
 
-    /*获取分组*/
-    group(condition=[],fn){
-        const params=[
-            condition,
-            {},
-            {"count":0},
-            (obj,prev)=>{prev.count++;},
-            fn
-        ]
-        console.log("外层参数",params);
-        this._buildMethod.call(this,params,"group");
+    /**
+     *获取唯一文档
+     *
+     * @param {*} [where={}]
+     * @param {*} fn
+     * @memberof mongoDB
+     */
+    distinct({key="",where={},fn}){
+        this._actionBuilder.call(this,[key,where,fn],this.apiName.distinct);
+    }
 
-        /*
-        this._initDB((db,client)=>{
-            db.group(condition,{},{"count":0}, (obj,prev)=>{ prev.count++; },(err,result)=>{
-                if(err) throw err;
-                fn(result);
-            });    
-        })
-        */
-  
-    }
-    /*获取唯一的文档 */
-    distinct(condition={},fn){
-        this._initDB((db,client)=>{
-            db.distinct(condition,(err,result)=>{
-                if(err) throw err;
-                fn(result);
-            });
-        });
-    }
-    /*获取文档数 */
-    count(condition={},fn){
-        db.count(condition,(err,result)=>{
-            if(err) throw err;
-            fn(result);
-        });
+    /**
+     *获取文档数
+     *
+     * @param {*} [where={}]
+     * @param {*} fn
+     * @memberof mongoDB
+     */
+    count({where={},fn}){
+        this._actionBuilder.call(this,[where,fn],this.apiName.count);
     }
 }
 

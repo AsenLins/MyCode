@@ -12,12 +12,16 @@ const multer=require("multer");
 /*压缩gzip.中间件 */
 const compression=require("compression");
 
-
-
-
 const app=express();
 
 
 
-
-module.exports=app;
+module.exports={
+    app,
+    cookie,
+    body,
+    session,
+    cors,
+    multer,
+    compression
+};
