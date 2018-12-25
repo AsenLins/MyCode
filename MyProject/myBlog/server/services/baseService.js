@@ -8,9 +8,12 @@ class baseService{
 
     getListByPage({pageIndex=1,pageSize=10,where={},orderBy={}}){
         return new Promise((resolve,reject)=>{
-
             this.db.find({where,fn:function(err,result){
                 if(err) reject(err);
+                
+                pageIndex=parseInt(pageIndex);
+                pageSize=parseInt(pageSize);
+
                 result.sort(orderBy).skip((pageIndex-1)*pageSize).limit(pageSize).toArray((err,result)=>{
                     if(err) reject(err);
                     resolve(result);

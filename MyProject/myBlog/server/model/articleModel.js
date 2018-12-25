@@ -1,7 +1,7 @@
 
 const uuidv1 = require('uuid/v1');
 
-class Article{
+class ArticleModel{
     constructor(option){
         this._id=option._id||uuidv1();           //文章ID
         this.name=option.name||'';              //文章名称
@@ -19,4 +19,4 @@ class Article{
     }
 }
 
-module.exports=Article;
+module.exports=ArticleModel;

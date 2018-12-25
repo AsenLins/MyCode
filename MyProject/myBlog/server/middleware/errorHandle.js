@@ -1,8 +1,16 @@
 
-function errorHandle(err,req,res,mext){
-    console.log("custom error");
-    res.send("server error");
+function errorHandle(err,req,res,next){
+    if(err){
+        res.status(500).send("server error.");
+    }
     next();
 }
 
-module.exports=errorHandle;
+function notFoundHandle(req,res){
+    res.status(404).send("NotFound");
+}
+
+module.exports={
+    errorHandle,
+    notFoundHandle
+};
