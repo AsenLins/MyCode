@@ -25,7 +25,8 @@ class mongoDB{
             group:"group",
             distinct:"distinct",
             count:"count",
-            updateMany:"updateMany"
+            updateMany:"updateMany",
+            mapReduce:"mapReduce"
         }
 
      
@@ -40,6 +41,7 @@ class mongoDB{
         dbConnect.connect(this.url,this.config,(err,client)=>{
             if(err) throw err;
             const db = client.db(this.dbName).collection(this.collectionName);
+        
             fn(db,client);
             client.close();
         })
@@ -193,6 +195,11 @@ class mongoDB{
     count({where={},fn}){
         this._actionBuilder.call(this,[where,fn],this.apiName.count);
     }
+
+    mapReduce({map="",reduce="",option={},fn}){
+        this._actionBuilder.call(this,[map,reduce,option,fn],this.apiName.mapReduce);
+    }
+
 }
 
 module.exports=mongoDB;

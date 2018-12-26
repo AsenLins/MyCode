@@ -1,8 +1,73 @@
 const visitorRouter=require("express").Router();
+const visitorService=require("../services/visitorService");
+const visitorModel=require("../model/visitorModel");
 
 
+function buildParam(name,value,operator){
+    
+}
 
-visitorRouter.get()
+visitorRouter.get("/api/getVisitorByPage",(req,res,next)=>{
+    const where={};
+    if(req.query.startDate!==undefined||req.query.endDate!==undefined){
+        where["visitTime"]={};
+        if(req.query.startDate!==undefined){
+            where["visitTime"]["$gte"]=new Date(req.query.startDate);
+        }
+        if(req.query.endDate!==undefined){
+            where["visitTime"]["$lte"]=new Date(req.query.endDate);
+        }   
+    }
+    visitorService.getListByPage({
+        pageIndex:req.query.pageIndex,
+        pageSize: req.query.pageSize,
+        where,
+        orderBy:{visitTime:-1}
+    }).then(result=>{
+        res.sendSuccess(result);
+    }).catch(next);
+})
+
+
+visitorRouter.post("/api/visitor",(req,res,next)=>{
+    const visitor=new visitorModel();
+    visitor.ip=req.body.ip;
+    visitor.reqUrl=req.body.reqUrl;
+    visitor.userAgent=req.headers["user-agent"];
+ 
+    visitorService.add({addObj:visitor}).then(result=>{
+        res.sendSuccess(result);
+    }).catch(next);
+});
+
+visitorRouter.get("/api/getPageviews",(req,res,next)=>{
+    const where={};
+    if(req.query.startDate!==undefined||req.query.endDate!==undefined){
+        where["visitTime"]={};
+        if(req.query.startDate!==undefined){
+            where["visitTime"]["$gte"]=new Date(req.query.startDate);
+        }
+        if(req.query.endDate!==undefined){
+            where["visitTime"]["$lte"]=new Date(req.query.endDate);
+        }   
+    }
+
+    /*
+    visitorService.group({keys:['reqUrl'],where}).then(result=>{
+         res.sendSuccess(result);
+    }).catch(next);
+    */
+
+
+    
+    visitorService.distinct({key:'ip',where}).then(result=>{
+        res.sendSuccess(result.length)
+    }).catch(next);
+    
+
+});
+
+
 
 /*
 PV、UV、VV、独立 IP 数是** 网站分析 **中最基础、最常见的指标。

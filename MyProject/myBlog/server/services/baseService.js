@@ -95,6 +95,15 @@ class baseService{
             }});
         });
     }
+
+    mapReduce({map="",reduce="",option={}}){
+        return new Promise((resolve,reject)=>{
+            this.db.mapReduce({map,reduce,option,fn:(err,result)=>{
+                if(err) reject(err);
+                resolve(result);
+            }})
+        });
+    }
 }
 
 

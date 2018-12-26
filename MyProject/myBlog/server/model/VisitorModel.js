@@ -9,3 +9,5 @@ class visitorModel{
         this.visitTime=option.vistTime||new Date();
     }
 }
+
+module.exports=visitorModel;
