@@ -10,7 +10,7 @@ class baseService{
         return new Promise((resolve,reject)=>{
             this.db.find({where,fn:function(err,result){
                 if(err) reject(err);
-                
+
                 pageIndex=parseInt(pageIndex);
                 pageSize=parseInt(pageSize);
 
@@ -37,13 +37,22 @@ class baseService{
             }})
         });
     }
-    update({where={},update={}}){
+    updateOne({where={},update={}}){
         return new Promise((resolve,reject)=>{
             this.db.findOneAndUpdate({where,update,fn:(err,result)=>{
                 if(err) reject(err);
                 resolve(result);
             }})
         });
+    }
+    update({where={},update={}}){
+        return new Promise((resolve,reject)=>{
+            this.db.updateMany({where,update,fn:(err,result)=>{
+                if(err) reject(err);
+                resolve(result);
+            }})
+        });
+
     }
     remove({id}){
         return new Promise((resolve,reject)=>{

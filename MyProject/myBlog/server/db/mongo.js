@@ -24,7 +24,8 @@ class mongoDB{
             findOneAndDelete:"findOneAndDelete",
             group:"group",
             distinct:"distinct",
-            count:"count"
+            count:"count",
+            updateMany:"updateMany"
         }
 
      
@@ -63,7 +64,8 @@ class mongoDB{
         callBack=paramArg[paramArg.length-1],
         wrapCallBack=function(err,data){
             //if(err) throw err;
-            if(data.result!==undefined){
+          
+            if(data!=null&&data.result!==undefined){
                 callBack(err,data.result);
             }else{
                 callBack(err,data);
@@ -130,6 +132,11 @@ class mongoDB{
      */
     findOneAndUpdate({where={},update={},fn}){
         this._actionBuilder.call(this,[where,{$set:update},fn],this.apiName.findOneAndUpdate);
+    }
+
+    /**更新多个文档 */
+    updateMany({where={},update={},fn}){
+        this._actionBuilder.call(this,[where,{$set:update},fn],this.apiName.updateMany)
     }
 
     /**

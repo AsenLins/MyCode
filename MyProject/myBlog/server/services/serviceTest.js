@@ -1,4 +1,4 @@
-const articleService=require("./articleService");
+const articleService = require("./articleService");
 
 /*
 articleService.add({_id:1,age:10,name:"sam_1"}).then((result)=>{
@@ -52,6 +52,6 @@ articleService.group({keys:['name']}).then((result)=>{
 });
 */
 
-articleService.getListByPage({pageIndex:1,pageSize:5,orderBy:{age:-1}}).then((result)=>{
-    console.log("pageList",result);
+articleService.getListByPage({ pageIndex: 1, pageSize: 5, orderBy: { age: -1 } }).then((result) => {
+    console.log("pageList", result);
 });

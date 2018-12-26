@@ -34,7 +34,7 @@ authorizeRouter.get("/api/apitest",(req,res)=>{
 });
 
 /**后台登录*/
-authorizeRouter.post("/api/loginBlogManger", (req, res) => {
+authorizeRouter.post("/api/loginBlogManger", (req, res,next) => {
     try {
         const login = req.body;
         if (login.loginName === undefined || login.pwd === undefined) {
@@ -59,7 +59,7 @@ authorizeRouter.post("/api/loginBlogManger", (req, res) => {
                 token: jwt.sign(payLoad, secret)
             });
     
-        });
+        }).catch(next);
 
     }
     catch (ex) {

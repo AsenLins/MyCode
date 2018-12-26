@@ -1,6 +1,7 @@
 const app=require("express")(),
 handles=require("./middleware/errorHandle"),
 customSend=require("./middleware/customSend");
+objectMap=require("./middleware/objectMap");
 thirdParty=require("./middleware/third-party"),
 apiRouters=require("./api/index"),
 controllerRouter=require("./controller/index");
@@ -17,6 +18,7 @@ app.use(thirdParty.compression());
 app.use(thirdParty.bodyParse);
 */
 app.use(customSend);
+app.use(objectMap);
 
 /*api路由*/
 app.use(apiRouters);
@@ -25,10 +27,6 @@ app.use(apiRouters);
 /*自定义错误路由*/
 app.use(handles.errorHandle);
 app.use("*",handles.notFoundHandle);
-
-app.post("/tb",(req,res)=>{
-    res.send(req.body);
-});
 
 app.listen(port,()=>{
     console.log("server is start:",port);
