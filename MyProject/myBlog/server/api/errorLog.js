@@ -1,18 +1,13 @@
 const errorLogRouter = require("express").Router();
 const errorLogService = require("../services/errorLogService");
-
+const conditionBuilder=require("../core/conditionBuilder");
 /**获取错误日志 */
 errorLogRouter.get("/api/getErrorList", (req, res, next) => {
-    const where={};
-    if(req.query.startDate!==undefined||req.query.endDate!==undefined){
-        where["createDate"]={};
-        if(req.query.startDate!==undefined){
-            where["createDate"]["$gte"]=new Date(req.query.startDate);
-        }
-        if(req.query.endDate!==undefined){
-            where["createDate"]["$lte"]=new Date(req.query.endDate);
-        }   
-    }
+
+    const where=conditionBuilder(req.query)
+    .setDateInObj("createDate","$gte","startDate")
+    .setDateInObj("createDate","$lte","endDate")
+    .result();
 
     errorLogService.getListByPage({
         pageIndex: req.query.pageIndex,

@@ -1,19 +1,15 @@
 const loginLogRouter = require("express").Router();
 const loginLogService = require("../services/loginLogService");
 const loginLogModel = require("../model/loginLogModel");
+const conditionBuilder=require("../core/conditionBuilder");
 
 /*获取登录日志记录*/
 loginLogRouter.get("/api/LoginList", (req, res, next) => {
-    const where={};
-    if (req.query.startDate !== undefined || req.query.endDate !== undefined) {
-        where["loginTime"] = {};
-        if (req.query.startDate !== undefined) {
-            where["loginTime"]["$gte"] = new Date(req.query.startDate);
-        }
-        if (req.query.endDate !== undefined) {
-            where["loginTime"]["$lte"] = new Date(req.query.endDate);
-        }
-    }
+    const where=conditionBuilder(req.query)
+    .setDateInObj("loginTime","$gte","startDate")
+    .setDateInObj("loginTime","$lte","endDate")
+    .result();
+
 
     loginLogService.getListByPage({
         pageIndex: req.query.pageIndex,
