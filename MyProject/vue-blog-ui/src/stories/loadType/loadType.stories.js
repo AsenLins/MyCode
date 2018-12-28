@@ -7,7 +7,7 @@ import { linkTo } from '@storybook/addon-links';
 
 import vue from 'vue';
 import '../../components/style/index.scss';
-import blogUI from '../../components/index.js';
+import blogUI from '../../index.js';
 
 vue.use(blogUI);
 
