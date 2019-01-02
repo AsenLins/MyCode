@@ -1,6 +1,3 @@
-
-
-
 const errorLogService=require("../services/errorLogService");
 const errorLogModel=require("../model/errorLogModel");
 function errorHandle(err,req,res,next){
