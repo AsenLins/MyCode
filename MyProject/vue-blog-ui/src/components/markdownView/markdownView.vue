@@ -32,7 +32,8 @@ export default {
     methods: {
         getHtml() {
             const markdownPanel = document.getElementById("testDemo");
-            const html = markdownPanel.innerText;
+            var html = markdownPanel.innerText;
+            var html2=html;
             const regs = /\n/;
             const markdownAry = html.split(regs);
             const markdownResult = [];
@@ -129,21 +130,85 @@ export default {
                 img: new RegExp("\\!\\[.*\\]\\(http(s)?://[^\\s]+\\)")
             };
 
+
+
+            const markDownDomBuild={
+                h1:null,
+                h2:null,
+                h3:null,
+                h4:null,
+                h5:null,
+                h6:null,                               
+                ul:null,
+                ol:null,
+                li:null,
+                div:null,
+                code:null,
+                a:null,
+                img:null,
+                wrap:document.createElement("div"),
+                em:null,
+                _buildDom(domName){
+                    if(this[domName]===null){
+                        this[domName]=document.createElement(domName);
+                    }else{
+                        this[domName].innerText="";
+                        this[domName].innerHTML="";
+                        this[domName].className="";
+                        if(domName=="img"||domName=="a"){
+                            this[domName].removeAttribute("src");
+                            this[domName].removeAttribute("href");
+                        }                        
+                    }
+                },
+                _getDomHtml(dom){
+                    this.wrap.appendChild(dom);
+                    const innerHTML=this.wrap.innerHTML;
+                    this.wrap.removeChild(dom);
+                    return innerHTML;
+                },
+                getDom(domName,className,innerHTML){           
+                    this._buildDom(domName);
+                    this[domName].className=className;
+                    this[domName].innerHTML=innerHTML;                
+                    return this._getDomHtml(this[domName]);
+                },               
+                getLink(href,text){
+                    const domName="a";
+                    this._buildDom(domName);
+                    this[domName].setAttribute("href",href);
+                    if(text!==undefined&&text!=""){
+                        this[domName].innerText=text;
+                    }
+                    return this._getDomHtml(this[domName]);
+                },
+                getImg(src){
+                    const domName="img";
+                    this._buildDom(domName);
+                    this[domName].setAttribute("src",src);
+                    return this._getDomHtml(this[domName]);
+                }
+            };
+
+
             const inlineRegObj={
+
+                blod:{
+                    reg:/^[^\`]\*{2}[^\*]+?\*{2}|\_{2}[^\_]+?\_{2}/,
+                    replaceReg:/\*{2}|\_{2}/ig,
+                    dom:"em",
+                    class:"bl-mdblod"
+                },
+
                 italic:{
-                    reg:/\*{1}[^\*]+?\*{1}|\_{1}[^\_]+?\_{1}/,
+                    reg:/^[^\`]\*{1}[^\*]+?\*{1}|\_{1}[^\_]+?\_{1}/,
                     replaceReg:/\*|\_/ig,
                     dom:"em",
                     class:"bl-mditalic"
                 },
-                blod:{
-                    reg:/\*{2}[^\*]+?\*{2}|\_{2}[^\_]+?\_{2}/,
-                    replaceReg:/\*{2}|\_{2}/,
-                    dom:"em",
-                    class:"bl-mdblod"
-                },
+
                 backquote:{
-                    reg:/\`{1}[^\`]\`{1}/,
+                    reg:/\`{1}[^\`]+?\`{1}/,
                     replaceReg:/\`/ig,
                     dom:"em",
                     class:"bl-mdbackquote"
@@ -151,13 +216,16 @@ export default {
                 link:{
                     reg:/http(s)?:\/\/[^ ]+|\[.*\]\(http(s)?:\/\/[^\s]+\)/,
                     replaceFn(text=""){
-                        const a=document.createElement("a");
-                        const div=document.createElement("div");
-                        const href=text.match(/http(s)?:\/\/[^ \)]+/)[0];
-                        a.setAttribute("href",href);
-                        a.innerText=text.match(/\[.*\]/)[0].replace(/\[|\]/ig,"")||href;
-                        div.appendChild(a);
-                        return div.innerHTML;
+                        const href=text.match(/http(s)?\:\/\/[^ \)]+/)[0];
+                        const hrefText=text.match(/\[.*\]/);
+                        const innerText=hrefText!=null?hrefText.replace(/\[|\]/ig,""):href;
+                        //console.log(markDownDomBuild.getLink(href,innerText));
+                        
+                        console.log("href",href);
+                        console.log("hrefText",hrefText);
+                        console.log("innerText",innerText);
+
+                        return markDownDomBuild.getLink(href,innerText);
                     },
                     dom:"a",
                     class:"bl-mdlink"
@@ -165,18 +233,43 @@ export default {
                 img:{
                     reg:/\!\[.*\]\(http(s)?:\/\/[^\s]+\)/,
                     replaceFn(text=""){
-                        const img=document.createElement("img");
-                        const div=document.createElement("div");
                         const src=text.match(/http(s)?:\/\/[^ \)]+/)[0];
-                        img.setAttribute("src",src);
-                        div.appendChild(a);
-                        return div.innerHTML;
+                        return markDownDomBuild.getImg(src);
                     },
                     dom:"img",
                     class:"bl-mdimg"
                 }
 
             }
+
+            const resultReplace=[];
+            const resultReplace2=[];
+
+            Object.keys(inlineRegObj).forEach((key,index)=>{
+                const curinlineReg=inlineRegObj[key];
+                var curexec=null;
+                while(curexec=curinlineReg.reg.exec(html)){
+                    var curextext=curexec[0];
+                    var replaceText=curextext.replace(curinlineReg.replaceReg,"");
+                    var innerHtml;
+                    if(curinlineReg.replaceFn!==undefined){
+                        innerHtml=curinlineReg.replaceFn(curextext);
+                    }else{
+                        innerHtml=markDownDomBuild.getDom(curinlineReg.dom,curinlineReg.class,replaceText);                    
+                    }
+
+                    html=html.replace(curextext,innerHtml);
+                    break;
+                }
+            });
+
+
+        
+            return;
+
+            Object.keys(inlineRegObj).forEach((key,index)=>{
+                
+            });
 
             console.log("baidu",inlineRegObj.link.replaceFn("[](http://baidu.com/page?a=123&b=443)"));
 
