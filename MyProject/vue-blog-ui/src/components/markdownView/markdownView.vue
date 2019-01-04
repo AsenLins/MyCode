@@ -194,14 +194,14 @@ export default {
             const inlineRegObj={
 
                 blod:{
-                    reg:/^[^\`]\*{2}[^\*]+?\*{2}|\_{2}[^\_]+?\_{2}/,
+                    reg:/\*{2}[^\*]+?\*{2}|\_{2}[^\_]+?\_{2}/ig,
                     replaceReg:/\*{2}|\_{2}/ig,
                     dom:"em",
                     class:"bl-mdblod"
                 },
 
                 italic:{
-                    reg:/^[^\`]\*{1}[^\*]+?\*{1}|\_{1}[^\_]+?\_{1}/,
+                    reg:/\*{1}[^\*]+?\*{1}|\_{1}[^\_]+?\_{1}/ig,
                     replaceReg:/\*|\_/ig,
                     dom:"em",
                     class:"bl-mditalic"
@@ -214,17 +214,17 @@ export default {
                     class:"bl-mdbackquote"
                 },
                 link:{
-                    reg:/http(s)?:\/\/[^ ]+|\[.*\]\(http(s)?:\/\/[^\s]+\)/,
+                    reg:/\b((?<!\=\")(?<!\>)http(s)?:\/\/[^ ]+)\b|\[.*\]\(http(s)?:\/\/[^\s]+\)/ig,
                     replaceFn(text=""){
                         const href=text.match(/http(s)?\:\/\/[^ \)]+/)[0];
                         const hrefText=text.match(/\[.*\]/);
                         const innerText=hrefText!=null?hrefText.replace(/\[|\]/ig,""):href;
                         //console.log(markDownDomBuild.getLink(href,innerText));
-                        
                         console.log("href",href);
                         console.log("hrefText",hrefText);
                         console.log("innerText",innerText);
 
+                        console.log("a",markDownDomBuild.getLink(href,innerText));
                         return markDownDomBuild.getLink(href,innerText);
                     },
                     dom:"a",
@@ -247,8 +247,12 @@ export default {
 
             Object.keys(inlineRegObj).forEach((key,index)=>{
                 const curinlineReg=inlineRegObj[key];
+               
                 var curexec=null;
+               
+
                 while(curexec=curinlineReg.reg.exec(html)){
+
                     var curextext=curexec[0];
                     var replaceText=curextext.replace(curinlineReg.replaceReg,"");
                     var innerHtml;
@@ -257,9 +261,10 @@ export default {
                     }else{
                         innerHtml=markDownDomBuild.getDom(curinlineReg.dom,curinlineReg.class,replaceText);                    
                     }
-
+                    console.log("curextext",curextext);
                     html=html.replace(curextext,innerHtml);
-                    break;
+                    console.log("the html",html);
+                   
                 }
             });
 
