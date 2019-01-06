@@ -173,10 +173,11 @@ export default {
                     this[domName].innerHTML=innerHTML;                
                     return this._getDomHtml(this[domName]);
                 },               
-                getLink(href,text){
+                getLink(href,text,linkclass){
                     const domName="a";
                     this._buildDom(domName);
                     this[domName].setAttribute("href",href);
+                    this[domName].className=linkclass;
                     if(text!==undefined&&text!=""){
                         this[domName].innerText=text;
                     }
@@ -193,39 +194,38 @@ export default {
 
             const inlineRegObj={
 
-                blod:{
-                    reg:/\*{2}[^\*]+?\*{2}|\_{2}[^\_]+?\_{2}/ig,
-                    replaceReg:/\*{2}|\_{2}/ig,
-                    dom:"em",
-                    class:"bl-mdblod"
-                },
-
-                italic:{
-                    reg:/\*{1}[^\*]+?\*{1}|\_{1}[^\_]+?\_{1}/ig,
-                    replaceReg:/\*|\_/ig,
-                    dom:"em",
-                    class:"bl-mditalic"
-                },
-
                 backquote:{
                     reg:/\`{1}[^\`]+?\`{1}/,
                     replaceReg:/\`/ig,
                     dom:"em",
                     class:"bl-mdbackquote"
                 },
+                blod:{
+                    reg:/(?<!bl-mdbackquote)\*{2}[^\*]+?\*{2}|(?<!\>)\_{2}[^\_]+?\_{2}/ig,
+                    replaceReg:/\*{2}|\_{2}/ig,
+                    dom:"em",
+                    class:"bl-mdblod"
+                },
+                
+                italic:{
+                    reg:/(?<!bl-mdbackquote)\*{1}[^\*]+?\*{1}|(?<!\>)\_{1}[^\_]+?\_{1}/ig,
+                    replaceReg:/\*|\_/ig,
+                    dom:"em",
+                    class:"bl-mditalic"
+                },
+                
+
                 link:{
-                    reg:/\b((?<!\=\")(?<!\>)http(s)?:\/\/[^ ]+)\b|\[.*\]\(http(s)?:\/\/[^\s]+\)/ig,
+                    reg:/\b((?<!bl-mdlink)http(s)?:\/\/[^ \<]+)\b|\[.*\]\(http(s)?:\/\/[^\s\>]+\)/ig,
                     replaceFn(text=""){
                         const href=text.match(/http(s)?\:\/\/[^ \)]+/)[0];
                         const hrefText=text.match(/\[.*\]/);
-                        const innerText=hrefText!=null?hrefText.replace(/\[|\]/ig,""):href;
-                        //console.log(markDownDomBuild.getLink(href,innerText));
-                        console.log("href",href);
-                        console.log("hrefText",hrefText);
-                        console.log("innerText",innerText);
-
-                        console.log("a",markDownDomBuild.getLink(href,innerText));
-                        return markDownDomBuild.getLink(href,innerText);
+                        var innerText="";
+                        if(hrefText!=null){
+                            innerText=hrefText.length>0?hrefText[0].replace(/\[|\]/ig,""):href;
+                        }
+                         
+                        return markDownDomBuild.getLink(href,innerText,this.class);
                     },
                     dom:"a",
                     class:"bl-mdlink"
