@@ -194,29 +194,29 @@ export default {
 
             const inlineRegObj={
 
-                backquote:{
-                    reg:/\`{1}[^\`]+?\`{1}/,
-                    replaceReg:/\`/ig,
-                    dom:"em",
-                    class:"bl-mdbackquote"
-                },
+
                 blod:{
-                    reg:/(?<!bl-mdbackquote)\*{2}[^\*]+?\*{2}|(?<!\>)\_{2}[^\_]+?\_{2}/ig,
+                    reg:/(?!\`\w\**)\*{2}[^\*\`]+?\*{2}(?!\**\`)|\_{2}[^\_]+?\_{2}/g,
                     replaceReg:/\*{2}|\_{2}/ig,
                     dom:"em",
                     class:"bl-mdblod"
                 },
                 
                 italic:{
-                    reg:/(?<!bl-mdbackquote)\*{1}[^\*]+?\*{1}|(?<!\>)\_{1}[^\_]+?\_{1}/ig,
+                    reg:/(?!\`\**\w)\*{1}[^\*\`]+?\*{1}(?!\**\`)|\_{1}[^\_]+?\_{1}/g,
                     replaceReg:/\*|\_/ig,
                     dom:"em",
                     class:"bl-mditalic"
                 },
                 
-
+                backquote:{
+                    reg:/\`{1}[^\`]+?\`{1}/,
+                    replaceReg:/\`/ig,
+                    dom:"em",
+                    class:"bl-mdbackquote"
+                },
                 link:{
-                    reg:/\b((?<!bl-mdlink)http(s)?:\/\/[^ \<]+)\b|\[.*\]\(http(s)?:\/\/[^\s\>]+\)/ig,
+                    reg:/((?<!\=\")(?<!.*bl-link.*\>)http(s)?:\/\/[^ \<]+)|\[.*\]\(http(s)?:\/\/[^\s\>]+\)/ig,
                     replaceFn(text=""){
                         const href=text.match(/http(s)?\:\/\/[^ \)]+/)[0];
                         const hrefText=text.match(/\[.*\]/);
