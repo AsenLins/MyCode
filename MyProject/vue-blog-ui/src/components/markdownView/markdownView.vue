@@ -191,32 +191,36 @@ export default {
                 }
             };
 
+            
+
 
             const inlineRegObj={
-
-                backquote:{
-                    reg:/\`{1}[^\`]+?\`{1}/,
-                    replaceReg:/\`/ig,
-                    dom:"em",
-                    class:"bl-mdbackquote"
-                },
+                 /*替换要拿索引替换，不然会有重复的 */
+                 //(?!\**\`)\*{2}[^\*]+?\*{2}(?!.*\`)
+                 //(?!\**\`)\*{2}[^\*]+?\*{2}(?!.*\`)
                 blod:{
-                    reg:/(?<!bl-mdbackquote)\*{2}[^\*]+?\*{2}|(?<!\>)\_{2}[^\_]+?\_{2}/ig,
+                    reg:/(?!\**\`)\*{2}[^\*]+?\*{2}(?!.*\**\`)|(?!\_*\`)\_{2}[^\_]+?\_{2}(?!.*\_*\`)/g,
                     replaceReg:/\*{2}|\_{2}/ig,
                     dom:"em",
                     class:"bl-mdblod"
                 },
                 
                 italic:{
-                    reg:/(?<!bl-mdbackquote)\*{1}[^\*]+?\*{1}|(?<!\>)\_{1}[^\_]+?\_{1}/ig,
+                    reg:/(?!\**\`)\*{1}[^\*]+?\*{1}(?!.*\**\`)|(?!\_*\`)\_{1}[^\_]+?\_{1}(?!.*\_*\`)/g,
                     replaceReg:/\*|\_/ig,
                     dom:"em",
                     class:"bl-mditalic"
                 },
-                
+                               
+                backquote:{
+                    reg:/\`{1}[^\`]+?\`{1}/,
+                    replaceReg:/\`/ig,
 
+                    dom:"em",
+                    class:"bl-mdbackquote"
+                },
                 link:{
-                    reg:/\b((?<!bl-mdlink)http(s)?:\/\/[^ \<]+)\b|\[.*\]\(http(s)?:\/\/[^\s\>]+\)/ig,
+                    reg:/((?!\=\")(?<!.*bl-link.*\>)http(s)?:\/\/[^ \<]+)|\[.*\]\(http(s)?:\/\/[^\s\>]+\)/ig,
                     replaceFn(text=""){
                         const href=text.match(/http(s)?\:\/\/[^ \)]+/)[0];
                         const hrefText=text.match(/\[.*\]/);
