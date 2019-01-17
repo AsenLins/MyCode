@@ -43,9 +43,12 @@ function token(inputStr){
             var vaule="";
 
             vaule=vaule+inputStr[current++];
-
+            while(/[0-9]/.test(char)){
+                
+            }
             tokens.push({
-                              
+               type:"number",
+               vaule:vaule           
             });
             
 
