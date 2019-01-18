@@ -1,8 +1,6 @@
 const marked=require("marked");
 
-
-var render=new marked.Renderer();
-
+var customRender = new marked.Renderer();
 
 const customMdClass={
     blockClass:{
@@ -13,6 +11,7 @@ const customMdClass={
         orderlist:"bl-md-orderlist",
         deorderlist:"bl-md-deorderlist",
         listitem:"bl-md-listitem",
+        todo:"bl-md-todo"
     },
     inlineClass:{
         strong:"bl-md-strong",
@@ -23,28 +22,53 @@ const customMdClass={
     }
 };
 
-render.heading=function(text,level,rawtext){
-    console.log(text);
-    console.log(level);
-    //console.log("rawtext:",rawtext);
-    return `123123123`;
+
+
+class customStyle{
+    constructor(option){
+        this.customClass=option.customClass;
+        this.render=option.render;
+    }
+    heading(){
+        this.render.heading=function(text,level){
+
+        }
+    }
 }
 
-render.blockquote=function(){
-    
+
+
+customRender.customClass=customMdClass;
+
+
+
+
+customRender.heading=function(text,level,rawtext){
+    return `<h${level} class="${this.customClass.blockClass.h}">${text}</h>`;
 }
 
-render.code=function(){
 
+
+const blockqutoSource=customRender.blockquote;
+
+customRender.blockquote=function(quto){
+   var result=blockqutoSource.call(null,quto);
+   return result.replace(/blockquote/ig,`blockquote class="${this.customClass.blockClass.blockquote}"`);
 }
 
 
 
 
 
-console.log(marked(`
-### abcd123
+customRender.code=function(){
+
+}
 
 
-`,{renderer:render}));
+
+console.log(marked(`>>>this is h2`,{renderer:customRender}));
+
+
+
+
 
