@@ -45,25 +45,25 @@
                 console.log("編輯的text",editText);
                 console.log("data",e.data,e);
                 if(e.data===null){
+                          var selection = getSelection()
                     var newLine=document.createElement("div");
+                   edit.appendChild(newLine); 
+                    
                     var range = document.createRange()
                     // 光标对象的范围界定为新建的表情节点
                     range.selectNodeContents(newLine)
                     // 光标位置定位在表情节点的最大长度
-                    range.setStart(newLine, newLine.length)
+                    range.setStart(newLine,0)
                     // 使光标开始和光标结束重叠
                     range.collapse(true)
                     // 清除选定对象的所有光标对象
                     selection.removeAllRanges()
                     // 插入新的光标对象
-                    selection.addRange(range)                
-                    edit.appendChild(newLine);    
+                    selection.addRange(range)  
 
+                  
                 }
                
-                var section=window.getse.getSelection();
-            
-                console.log(section);
 
 
                 if(line.test(editText)){
