@@ -7,11 +7,11 @@ import { linkTo } from '@storybook/addon-links';
 
 
 
-import markdownView from '../../components/markdownView/markdownView.vue';
+import markdownEdit from '../../components/markdownEdit/markdownEdit.vue';
 
 
 storiesOf('markdown 编辑器', module)
-.add('markdownPanel',()=>({
-  components:{markdownView},
-  template: '<markdown-view></markdown-view>',
+.add('markdownEdit',()=>({
+  components:{markdownEdit},
+  template: '<markdown-edit></markdown-edit>',
 }))
