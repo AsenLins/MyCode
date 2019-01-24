@@ -8,9 +8,8 @@
 
             <div class="bl-md-editPanel">
                 <div @input="input" @click="select" @keydown="down"  contenteditable="plaintext-only" class="bl-md-content">
-                    
                     {{content}}
-                    </div>
+                </div>
             </div>
         </div>
         <!--
@@ -22,53 +21,9 @@
 </template>
 
 <script>
+import Range from './range.js';
 
-    function range(){
-        this.range = document.createRange();
-        this.selection=window.getSelection();
-        this.start=null;
-        this.end=null;
-    }
-
-    range.prototype={
-        create(){
-            this.range = document.createRange();
-            return this;
-        },
-        get(){
-            this.selection=window.getSelection();
-            return this;
-        },
-        setCollapse(val){
-            this.range.collapse(val);
-            return this;
-        },
-        setStart(node,position){
-            this.range.setStart(node,position);
-            return this;
-        },
-        setEnd(){
-            
-            this.range.setStart(node,position);
-            return this;
-        },
-        /*设置光标的位置*/
-        setPosition(){
-            this.selection.removeAllRanges();
-            this.selection.addRange(this.range);
-        },
-        replaceRange(){
-            
-        },
-        insertBefore(){
-            
-        },
-        insertAfter(){
-
-        }
-    }
-
-
+var rangeObj=null;
    
 
     export default {
@@ -82,7 +37,9 @@
         },
 
         methods: {
-
+            mounted() {
+                rangeObj=new Range(".bl-md-content");
+            },
             select(){
                 var selection = getSelection();
 
