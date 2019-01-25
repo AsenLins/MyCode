@@ -1,27 +1,44 @@
 <template>
-    <div>
-        <div class="bl-md-edit">
+    <div class="bl-md-editWrap">
+
             <div class="bl-md-toolbar">
-                <div>链接</div>
-                <div>图片</div>
+                <input @click="toolBlod" type="button" value="加粗" />
+                <input @click="toolItalic" type="button" value="斜体" />
+                <input @click="toolLink" type="button" value="链接" />
+                <input @click="toolImg" type="button" value="图片" />
+                <input @click="toolCode" type="button" value="代码" />
+                <input @click="toolList" type="button" value="列表" />
             </div>
 
             <div class="bl-md-editPanel">
-                <div @input="input" @click="select" @keydown="down"  contenteditable="plaintext-only" class="bl-md-content">
-                    {{content}}
+                <div class="bl-md-rowPanel">
+                    <div :key="row.index" :style="{height:row.height}" v-for="row in rows" >{{row.index}}</div>
                 </div>
+                <div @input="input"  @keydown="down"  contenteditable="plaintext-only" class="bl-md-content">{{content}}</div>
             </div>
-        </div>
-        <!--
-        <div class="bl-markdown-prewview">
-
-        </div>
-        -->
     </div>
 </template>
 
 <script>
-import Range from './range.js';
+import range from './range.js';
+import rowText from './rowText.js';
+
+
+function fontHeight(text){
+    this.div=document.createElement("div");
+    this.div.setAttribute("id","ts");
+    this.div.style.cssText="visibility:hidden;display:inline-block;word-break:break-all;position: absolute; top:0px;";
+    document.getElementById("testHeight").appendChild(this.div);
+}
+fontHeight.prototype={
+    getTextHeight(text){      
+         document.getElementById("ts").innerText=text;
+         var dom=document.getElementById("ts");
+        console.log(window.getComputedStyle(dom).height);
+    }
+}
+
+
 
 var rangeObj=null;
    
@@ -29,28 +46,38 @@ var rangeObj=null;
     export default {
         data() {
             return {
-                rowIndex:1,
-                row:[1],
+                rows:[
+                    {
+                        index:1,
+                        height:25
+                    }
+                ],
                 content:""
                 
             }
         },
+        mounted() {
+            rangeObj=new range(".bl-md-content");
+            rowText.init({
+                width:"100%",
+                target:".bl-md-editPanel"
+            });
 
+           
+
+
+        },
         methods: {
-            mounted() {
-                rangeObj=new Range(".bl-md-content");
-            },
-            select(){
-                var selection = getSelection();
-
-                console.log("selection",selection);
-
-            },
             down(e){
-                console.log("down",e);
+                return;
+                //console.log("down",e);
                 const keyCode=e.keyCode;  //8,13
                 const code=e.code; //Enter Backspace
                 const edit=e.srcElement;
+                console.log(e);
+                var fontHeights=new fontHeight();
+                //var height=fontHeights.getTextHeight(e.srcElement.childNodes[0].data);
+
                 switch(code){
                     case "Backspace":
 
@@ -58,13 +85,16 @@ var rangeObj=null;
 
                     case "Enter":
                     const selection = getSelection();
-                    const curNode=selection.anchorNode;
+                    var curNode=selection.anchorNode;
                     var newLine=document.createElement("div");
-                    newLine.style.cssText="min-height:20px;background-color:gary;";
+                    newLine.style.cssText="min-height:20px;background-color:green;";
                     newLine.innerText="\n";
-
                 
-
+                    return;
+                    console.log("nextSibing",curNode.nodeName);
+                    if(curNode.nodeName==="#text"){
+                        curNode=curNode.parentNode;
+                    }
                     /*插入到最后节点*/
                     if(curNode.nextSibling==null){
                         console.log("insert last");
@@ -78,20 +108,46 @@ var rangeObj=null;
 
 
                     /*设置光标在新的一行 */
-                    
+                  
                     var range = document.createRange()
                     range.selectNodeContents(newLine)
                     range.setStart(newLine,0)
                     range.collapse(true)
                     selection.removeAllRanges()
                     selection.addRange(range)  
-                    
+                
                     e.preventDefault();
                     break;
                 }
 
             },
             input(e){
+                const edit=e.srcElement;
+             
+                var newRows=[];
+
+                console.log("the-width",window.getComputedStyle(document.querySelector('.bl-md-rowPanel')).width);
+                if(/\n/ig.test(edit.innerText)){
+                    var row=edit.innerText.split(/\n/ig);
+                    row=row.slice(0,row.length-1);
+                    console.log("therow",row);
+                    row.forEach((element,index) => {
+
+                        var height=rowText.setText(element).getTextStyle("height");
+                        newRows.push({
+                            index:index+1,
+                            height:height
+                        });
+                        console.log("height",height);
+                    });
+                }else{
+                    newRows.push({
+                        index:1
+                    });
+                }
+
+                this.rows=newRows;
+                //console.log("theHeight",height);
                 /*
                 const edit=e.srcElement;
                 const editText=edit.innerText;
@@ -143,7 +199,28 @@ var rangeObj=null;
 
                 
                 /*已\n作分割 */
+            },
+            toolBlod(){
+
+            },
+            toolItalic(){
+
+            },
+            toolLink(){
+
+            },
+            toolImg(){
+
+            }, 
+            toolCode(){
+
+            },
+            
+            toolList(){
+                
             }
+
+
         },
 
     }

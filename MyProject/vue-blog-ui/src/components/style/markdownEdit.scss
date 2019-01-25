@@ -1,26 +1,87 @@
-.bl-md-editPanel>div{
+
+.bl-md-editWrap{
+    background-color:#333333;
+    width:100%;
+    height:100%;
+    overflow-y:scroll;
+    position:relative;
    
-    height: 100%;
-}
-.bl-md-row{
-    background-color: #7d7d7d;
-    color: white;
-    padding: 0px 6px 0px 6px;
+ 
 }
 
 .bl-md-editPanel{
+   position:relative;
+   top:0px;
+   margin-top:25px;
+   height:100%;
+   >div{
+
+   }
+    
+}
+
+.bl-md-rowPanel{
+    position: absolute;
+    top:0px;
+    left:0px;
+    background-color: #2b2727;
+    color: white;
+    padding: 0px 6px 0px 6px;
+    display:inline-block;
+    min-height:100%;
+    width:45px;
     >div{
-        display: inline-block;
-        //float: left;
+        min-height:25px;
+        text-align: right;
     }
-} 
+}
+
+.bl-md-edit{
+    position:relative;
+    top:0px;
+    background-color:#333333;
+    width:50%;
+    height:100%;
+}
 
 .bl-md-content{
     vertical-align: top;
     background-color:#333333;
     color: white;
     outline: none;
-    width: 50%;
-    padding:0px 10px 0px 10px;
-
+    display:inline-block;
+    width:100%;
+    height:100%;
+    padding:0px 10px 0px 55px;
 }
+
+.bl-md-toolbar{
+    position:fixed;
+    height:30px;
+    width:100%;
+    z-index:100;
+
+}   
+
+.bl-md-editWrap::-webkit-scrollbar  
+{  
+    width: 10px;  /*滚动条宽度*/
+    height: 10px;  /*滚动条高度*/
+}  
+  
+/*定义滚动条轨道 内阴影+圆角*/  
+.bl-md-editWrap::-webkit-scrollbar-track  
+{  
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);  
+   // border-radius: 10px;  /*滚动条的背景区域的圆角*/
+    //background-color: #eeeeee;/*滚动条的背景颜色*/  
+}  
+  
+/*定义滑块 内阴影+圆角*/  
+.bl-md-editWrap::-webkit-scrollbar-thumb  
+{  
+    border-radius: 10px;  /*滚动条的圆角*/
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);  
+    background-color: gray;  /*滚动条的背景颜色*/
+} 
+
