@@ -42,7 +42,7 @@ server.use(function(req,res){
 
 
 server.get("*",(req,res)=>{
-  readyPromise.then(() => render(req, res))
+  //readyPromise.then(() => render(req, res))
 })
 
 /*
