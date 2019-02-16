@@ -48,10 +48,20 @@ function token(inputStr){
                 char=inputStr[++current];
             }
 
+<<<<<<< HEAD
 
             tokens.push({
                 type:"number",
                 value
+=======
+            vaule=vaule+inputStr[current++];
+            while(/[0-9]/.test(char)){
+                
+            }
+            tokens.push({
+               type:"number",
+               vaule:vaule           
+>>>>>>> 3b97f9a25dc71a23fca015eeb6532975481c040c
             });
             
             continue;
