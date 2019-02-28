@@ -1,6 +1,6 @@
 <template>
     <div>
-        this is artileDetial!!!!!!!!!!!!!!!!!!
+        this is artileDetial!!!!!!!!!!!!!!!!!!123123
     </div>
 </template>
 

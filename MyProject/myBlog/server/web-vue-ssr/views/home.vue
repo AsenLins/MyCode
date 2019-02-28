@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    this is homepage ggg424244444444444444444444111
+      大苏打撒旦44412321123123xxxxxxxxxx
   </div>
 </template>
 

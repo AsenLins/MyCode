@@ -68,6 +68,51 @@ function resolveFilePath(filePath){
 }
 
 
+const clientConfig=require('./build/webpack.client.config');
+
+clientConfig.entry.app = ['webpack-hot-middleware/client', clientConfig.entry.app]
+clientConfig.output.filename = '[name].js'
+clientConfig.plugins.push(
+  new webpack.HotModuleReplacementPlugin(),
+  new webpack.NoEmitOnErrorsPlugin()
+)
+
+const clientCompiler = webpack(clientConfig)
+const devMiddleware = require('webpack-dev-middleware')(clientCompiler, {
+  publicPath: clientConfig.output.publicPath,
+  noInfo: true
+})
+
+
+
+
+app.use(devMiddleware)
+
+
+
+clientCompiler.plugin('done', stats => {
+    console.log("cool");
+    stats = stats.toJson()
+    stats.errors.forEach(err => console.error(err))
+    stats.warnings.forEach(err => console.warn(err))
+    console.error('errors',stats.errors);
+    if (stats.errors.length) return
+    console.log("============================");
+
+
+    const clientManifest = JSON.parse(readFile(
+      devMiddleware.fileSystem,
+      'vue-ssr-client-manifest.json'
+      //'vue-ssr-client-manifest.json'
+    ))
+
+
+    console.log("============================2");
+    update()
+  })
+
+app.use(require('webpack-hot-middleware')(clientCompiler, { heartbeat: 5000 }))
+
 
 serverCompiler.watch({}, (err, stats) => {
     if (err) throw err
@@ -100,10 +145,10 @@ serverCompiler.watch({}, (err, stats) => {
   })
   app.use(devMiddleware)
   */
-app.use(require('webpack-hot-middleware')(serverCompiler, { heartbeat: 5000 }))
+
 
 app.use((req,res)=>{
-    
+    console.log("收到");
     setTimeout(function(){
         const context={title:"very cool",url:req.url};
         renderer.renderToString(context,(err,html)=>{
